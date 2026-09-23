@@ -38,9 +38,9 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.16 }}
             className="mt-7 max-w-md text-lg leading-relaxed text-paper-mute"
           >
-            Cheap racks flex. Wood racks warp. This one is printed in
-            glass-filled nylon, locks open at the corners, and folds flat
-            when you&apos;re done. The pack holds. The break means something.
+            Cheap racks flex. Wood racks warp. This one is two printed
+            rails and a pin. It locks open against the table cushion, then
+            folds flat when you&apos;re done. The pack holds.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -51,8 +51,8 @@ export function Hero() {
             <Link href="#buy" className="ember-btn">
               Get the Rack — {BRAND.priceLabel}
             </Link>
-            <Link href="#toy" className="ghost-btn">
-              See tightness
+            <Link href="#fold" className="ghost-btn">
+              See it fold
             </Link>
           </motion.div>
           <p className="mt-8 font-display text-[0.7rem] uppercase tracking-[0.2em] text-paper-mute">

@@ -15,7 +15,7 @@ export default function OrderSuccessPage({
         <h1 className="display mt-4 text-5xl sm:text-7xl">
           You bought
           <br />
-          a triangle.
+          two rails.
         </h1>
         <p className="mt-6 text-lg text-paper-mute">
           Stripe has the receipt. We have the order. You&apos;ll get a

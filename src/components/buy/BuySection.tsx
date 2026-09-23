@@ -48,8 +48,9 @@ export function BuySection() {
           <h2 className="display mt-4 text-5xl sm:text-6xl">The Rack</h2>
           <p className="mt-4 text-2xl text-ember">{BRAND.priceLabel}</p>
           <p className="mt-4 max-w-md text-paper-mute">
-            One triangle. Ships folded flat in a sleeve, not a box the size
-            of a pizza. Snap it open at the table. That&apos;s it.
+            Two rails and a pin. Ships folded flat in a sleeve, not a box
+            the size of a pizza. Snap it open against the cushion.
+            That&apos;s it.
           </p>
 
           <form onSubmit={checkout} className="mt-8 flex flex-wrap items-center gap-4">

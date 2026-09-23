@@ -11,7 +11,7 @@ import { WebGLErrorBoundary } from "@/components/rack/WebGLErrorBoundary";
 
 const ExplodedCanvas = dynamic(() => import("@/components/rack/ExplodedCanvas"), {
   ssr: false,
-  loading: () => <RackFallback className="h-full w-full" explode={0.4} />,
+  loading: () => <RackFallback className="h-full w-full" explode={0} />,
 });
 
 export function ExplodedSection() {
@@ -33,8 +33,8 @@ export function ExplodedSection() {
     const onScroll = () => {
       const rect = el.getBoundingClientRect();
       const view = window.innerHeight;
-      const start = view * 0.75;
-      const end = -rect.height * 0.15;
+      const start = view * 0.18;
+      const end = -rect.height * 0.2;
       const raw = (start - rect.top) / (start - end);
       setProgress(Math.min(1, Math.max(0, raw)));
     };
@@ -55,20 +55,19 @@ export function ExplodedSection() {
         <div>
           <p className="kicker">Anatomy</p>
           <h2 className="display mt-4 text-4xl sm:text-6xl md:text-7xl">
-            Three rails.
+            Two rails.
             <br />
-            No excuses.
+            The table does the rest.
           </h2>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-paper-mute">
-            Scroll it apart. Same triangle as the hero — three identical
-            nylon rails, hinged at the corners. They slide off the pins,
-            then they go back on. That&apos;s the whole machine.
+            Scroll it apart. Same caret as the hero — two nylon rails
+            sharing one apex pin. They slide off, then they go back on.
+            The cushion you already have is the third side.
           </p>
           <dl className="mt-10 space-y-4 text-sm">
             {[
-              ["01", "Rails", "Glass-filled nylon, 15° printed seat"],
-              ["02", "Hinges", "Corner detents. Lock open, fold flat."],
-              ["03", "Seat", "Balls drop in. They don't climb the wall."],
+              ["01", "Rails", "Two of them. Glass-filled nylon, 15° printed seat."],
+              ["02", "Pin", "One apex hinge. Lock open, fold flat."],
             ].map(([n, title, copy]) => (
               <div
                 key={n}

@@ -25,9 +25,10 @@ export function FounderNote() {
             product category, but I&apos;m done buying into it.
           </p>
           <p>
-            So I printed one that folds. Three rails, hinges that actually
-            detent. If it&apos;s on your table and the pack is still loose,
-            email me — something went wrong, and it&apos;s my problem.
+            So I printed one that folds. Two rails, one pin that actually
+            detents. The table already had a third side. If it&apos;s on
+            your table and the pack is still loose, email me — something
+            went wrong, and it&apos;s my problem.
           </p>
         </div>
         <p className="mt-10 font-display text-sm tracking-[0.16em] uppercase text-paper-mute">

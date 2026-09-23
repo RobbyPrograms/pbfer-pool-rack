@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 export const runtime = "edge";
 
 const STATS: Record<string, { num: string; label: string }> = {
-  fold: { num: "FLAT", label: "Folds at the corners" },
+  fold: { num: "FLAT", label: "Folds at the apex" },
   nylon: { num: "PA12-GF", label: "Glass-filled nylon" },
   weight: { num: "168 g", label: "Ready weight" },
   bevel: { num: "15°", label: "Printed seat" },

@@ -23,10 +23,10 @@ export const metadata: Metadata = {
     template: `%s · ${BRAND.name}`,
   },
   description:
-    "A folding pool rack that actually racks tight. Printed glass-filled nylon, locks open, packs flat.",
+    "A folding pool rack that actually racks tight. Two printed rails, locks open on the table cushion, packs flat.",
   openGraph: {
     title: `${BRAND.name} — ${BRAND.tagline}`,
-    description: "Printed nylon. Locks open. Folds flat. The pack holds.",
+    description: "Two rails. One pin. The table does the rest.",
     images: ["/og"],
   },
   twitter: {

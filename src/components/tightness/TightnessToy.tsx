@@ -153,12 +153,22 @@ export function TightnessToy() {
               role="img"
               aria-label="Interactive rack tightness comparison"
             >
-              <polygon
-                points="160,28 46,222 274,222"
+              <polyline
+                points="46,222 160,28 274,222"
                 fill="none"
                 stroke={mode === "pbfer" ? "#FF5A1F" : "#3a3a40"}
                 strokeWidth="7"
                 strokeLinejoin="round"
+                strokeLinecap="round"
+              />
+              <line
+                x1="40"
+                y1="226"
+                x2="280"
+                y2="226"
+                stroke="#1F4A3A"
+                strokeWidth="5"
+                strokeLinecap="round"
               />
               {home.map((p, i) => {
                 const isDrag = drag?.i === i;

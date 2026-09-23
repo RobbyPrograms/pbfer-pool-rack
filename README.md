@@ -99,7 +99,7 @@ Use the `whsec_…` the CLI prints as `STRIPE_WEBHOOK_SECRET`.
 
 ## 3D + performance
 
-- Hero visual is a config switch in `src/lib/hero-visual.ts`: `procedural` (current 3D triangle) or `spin` (360° photo sequence). Drop frames in `/public/spin` and flip the mode — no section rebuild.
+- Hero visual is a config switch in `src/lib/hero-visual.ts`: `procedural` (current 3D caret — two rails, open at the bottom) or `spin` (360° photo sequence). Drop frames in `/public/spin` and flip the mode — no section rebuild.
 - Hero and exploded views lazy-load with `next/dynamic` (`ssr: false`).
 - Canvas `dpr` is capped at `[1, 2]`. Two or three lights. Primitive geometry only.
 - `prefers-reduced-motion`, low core/memory devices, save-data, missing WebGL, or a first-second FPS probe under ~28 all fall back to the SVG rack.

@@ -5,29 +5,13 @@ type RackSvgProps = {
 };
 
 const APEX = { x: 50, y: 20 };
-const LEFT = { x: 20, y: 74 };
-const RIGHT = { x: 80, y: 74 };
+const LEFT = { x: 18, y: 78 };
+const RIGHT = { x: 82, y: 78 };
 
-const SIDES = [
+const RAILS = [
   { a: APEX, b: LEFT },
-  { a: LEFT, b: RIGHT },
-  { a: RIGHT, b: APEX },
+  { a: APEX, b: RIGHT },
 ] as const;
-
-function outward(a: { x: number; y: number }, b: { x: number; y: number }) {
-  const mx = (a.x + b.x) / 2;
-  const my = (a.y + b.y) / 2;
-  let nx = -(b.y - a.y);
-  let ny = b.x - a.x;
-  const len = Math.hypot(nx, ny) || 1;
-  nx /= len;
-  ny /= len;
-  if (nx * (mx - 50) + ny * (my - 50) < 0) {
-    nx *= -1;
-    ny *= -1;
-  }
-  return { nx, ny, mx, my };
-}
 
 export function RackSvg({
   className = "",
@@ -60,19 +44,20 @@ export function RackSvg({
         ) : null}
       </defs>
       <g filter={glow ? "url(#ember-glow)" : undefined}>
-        {SIDES.map((side, i) => {
-          const { nx, ny, mx, my } = outward(side.a, side.b);
-          const ox = nx * explode * 11;
-          const oy = ny * explode * 11;
-          const angle =
-            (Math.atan2(side.b.y - side.a.y, side.b.x - side.a.x) * 180) /
-            Math.PI;
-          const span = Math.hypot(side.b.x - side.a.x, side.b.y - side.a.y) - 8;
+        {RAILS.map((side, i) => {
+          const dx = side.b.x - side.a.x;
+          const dy = side.b.y - side.a.y;
+          const len = Math.hypot(dx, dy) || 1;
+          const seat = 3.2;
+          const mx = side.a.x + (dx / len) * (seat + (len - seat) / 2);
+          const my = side.a.y + (dy / len) * (seat + (len - seat) / 2);
+          const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+          const span = len - seat - 1;
           return (
             <g
               key={i}
               style={{
-                transform: `translate(${ox}px, ${oy}px)`,
+                transform: `translate(${(dx / len) * explode * 5}px, ${(dy / len) * explode * 5}px)`,
                 transition: "transform 420ms cubic-bezier(.15,.9,.2,1)",
               }}
             >
@@ -91,9 +76,14 @@ export function RackSvg({
             </g>
           );
         })}
-        <circle cx={APEX.x} cy={APEX.y} r="2.2" fill="#1a1a1d" stroke="#FF5A1F" strokeWidth="0.4" />
-        <circle cx={LEFT.x} cy={LEFT.y} r="2.2" fill="#1a1a1d" stroke="#FF5A1F" strokeWidth="0.4" />
-        <circle cx={RIGHT.x} cy={RIGHT.y} r="2.2" fill="#1a1a1d" stroke="#FF5A1F" strokeWidth="0.4" />
+        <circle
+          cx={APEX.x}
+          cy={APEX.y}
+          r="2.4"
+          fill="#1a1a1d"
+          stroke="#FF5A1F"
+          strokeWidth="0.45"
+        />
       </g>
     </svg>
   );

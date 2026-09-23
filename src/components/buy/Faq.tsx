@@ -9,15 +9,15 @@ const ITEMS = [
   },
   {
     q: "What is it actually made of?",
-    a: "SLS-printed glass-filled nylon (PA12-GF). Three rails, three locking corner hinges. No wood. No cheap injection plastic that bows when you lean on the 1-ball.",
+    a: "SLS-printed glass-filled nylon (PA12-GF). Two rails. One apex pin. No third bar — the table cushion is the third side. No wood. No cheap injection plastic that bows when you lean on the 1-ball.",
   },
   {
     q: "How does the fold work?",
-    a: "Each corner is a hinge with a detent. Snap it open and it locks at 60° — that's the rack. Pinch the latch and the rails fold into a 14 mm pack that fits a drawer or a bag pocket.",
+    a: "The two rails share one pin. Snap them open and they lock at 60° — that's the rack, seated on the cushion. Pinch the latch and they fold into a 14 mm stick that fits a drawer or a bag pocket. That's how it ships.",
   },
   {
-    q: "Will the hinges loosen?",
-    a: "If a hinge lets go, we replace it. Email a photo and your order. No receipt scavenger hunt.",
+    q: "Will the pin loosen?",
+    a: "If the pin lets go, we replace it. Email a photo and your order. No receipt scavenger hunt.",
   },
   {
     q: "Does it work on a 7-foot table?",

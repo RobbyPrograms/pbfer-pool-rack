@@ -16,22 +16,23 @@ export const BRAND = {
 } as const;
 
 export const SPECS = [
-  { label: "Frame", value: "SLS-printed glass-filled nylon (PA12-GF)" },
+  { label: "Frame", value: "Two rails. The table cushion is the third side." },
+  { label: "Material", value: "SLS-printed glass-filled nylon (PA12-GF)" },
   { label: "Finish", value: "As-printed, matte charcoal" },
-  { label: "Hinges", value: "Locking corner hinges, three of them" },
-  { label: "Folded", value: "Flat — 280 × 28 × 14 mm sleeve" },
-  { label: "Open lock", value: "Positive detent at 60° per corner" },
+  { label: "Pin", value: "Single apex hinge, locks open" },
+  { label: "Folded", value: "Flat — two rails stacked, 280 × 28 × 14 mm" },
+  { label: "Open lock", value: "Positive detent at 60°" },
   { label: "Weight", value: "168 g" },
-  { label: "Outer edge (open)", value: "280 mm" },
+  { label: "Rail length (open)", value: "280 mm" },
   { label: "Ball size", value: "2¼″ regulation" },
   { label: "Rail seat", value: "15° printed chamfer" },
   { label: "Compatibility", value: "7–9 ft tables, 15-ball rack" },
-  { label: "Warranty", value: "Replace it if a hinge lets go" },
+  { label: "Warranty", value: "Replace it if the pin lets go" },
 ] as const;
 
 export const STATS = [
-  { num: "PA12", unit: "", label: "Glass-filled nylon. Printed as one family of parts, not a cheap injection lump." },
-  { num: "3", unit: "", label: "Corner hinges. Pinch the latch, it goes flat. Snap it open, it locks." },
+  { num: "2", unit: "", label: "Rails. The cushion you already have is the third side. One less part to warp." },
+  { num: "1", unit: "", label: "Apex pin. Snap it open, it locks rigid. Fold it, it ships in a sleeve." },
   { num: "168", unit: "g", label: "Light enough for a drawer. Stiff enough that the pack doesn't yawn." },
   { num: "15", unit: "°", label: "Printed seat. Balls drop in. They don't climb the wall." },
 ] as const;
