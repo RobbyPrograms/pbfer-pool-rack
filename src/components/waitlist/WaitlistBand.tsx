@@ -7,8 +7,8 @@ export function WaitlistBand() {
         <div className="grid items-end gap-10 border border-ink-line bg-ink-raised p-8 md:grid-cols-[1fr_auto] md:p-12">
           <WaitlistForm />
           <p className="max-w-xs text-sm text-paper-mute md:text-right">
-            Tell a friend before 100 fills. The etch is the whole point of
-            getting here early.
+            Tell a friend before 100 fills. The name on the underside is
+            the whole point of getting here early.
           </p>
         </div>
       </div>

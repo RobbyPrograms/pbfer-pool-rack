@@ -5,15 +5,19 @@ import { useState } from "react";
 const ITEMS = [
   {
     q: "Where does it ship from?",
-    a: "We ship from the US. Domestic usually lands in 4–7 business days. International is available — you'll see the rate at checkout.",
+    a: "We ship from the US, folded flat in a sleeve. Domestic usually lands in 4–7 business days. International is available — you'll see the rate at checkout.",
   },
   {
     q: "What is it actually made of?",
-    a: "6061-T6 aluminum rails, hard-anodized. Stainless pins pressed at the corners. No plastic. No wood. No hidden steel that rusts in a damp basement.",
+    a: "SLS-printed glass-filled nylon (PA12-GF). Three rails, three locking corner hinges. No wood. No cheap injection plastic that bows when you lean on the 1-ball.",
   },
   {
-    q: "What if it warps?",
-    a: "It won't. If it does, we replace it. Lifetime against warp, no receipt scavenger hunt. Email us a photo of the corner and your order.",
+    q: "How does the fold work?",
+    a: "Each corner is a hinge with a detent. Snap it open and it locks at 60° — that's the rack. Pinch the latch and the rails fold into a 14 mm pack that fits a drawer or a bag pocket.",
+  },
+  {
+    q: "Will the hinges loosen?",
+    a: "If a hinge lets go, we replace it. Email a photo and your order. No receipt scavenger hunt.",
   },
   {
     q: "Does it work on a 7-foot table?",
@@ -21,7 +25,7 @@ const ITEMS = [
   },
   {
     q: "Can I get my name on it?",
-    a: "The first 100 people on the waitlist get their name laser-etched on the underside. After that, etching is a paid extra when we open it up.",
+    a: "The first 100 people on the waitlist get their name marked on the underside. After that, it's a paid extra when we open it up.",
   },
 ];
 

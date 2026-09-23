@@ -19,15 +19,15 @@ export function FounderNote() {
             the break was supposed to look like that.
           </p>
           <p>
-            I machine parts for a living. A rack is a fixture. Fixtures have
-            tolerances. I don&apos;t know why the industry decided
-            &quot;good enough if you squint&quot; was a product category, but
-            I&apos;m done buying into it.
+            I print parts until they stop being a joke. A rack is a fixture.
+            Fixtures either lock or they don&apos;t. I don&apos;t know why
+            the industry decided &quot;good enough if you squint&quot; was a
+            product category, but I&apos;m done buying into it.
           </p>
           <p>
-            So I made one. Three rails. Real numbers. If it&apos;s on your
-            table and the pack is still loose, email me — something went
-            wrong, and it&apos;s my problem.
+            So I printed one that folds. Three rails, hinges that actually
+            detent. If it&apos;s on your table and the pack is still loose,
+            email me — something went wrong, and it&apos;s my problem.
           </p>
         </div>
         <p className="mt-10 font-display text-sm tracking-[0.16em] uppercase text-paper-mute">

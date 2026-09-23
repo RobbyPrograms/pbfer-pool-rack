@@ -73,8 +73,8 @@ values (
   'the-rack',
   18900,
   'price_YOUR_TEST_PRICE',
-  'Machined 6061-T6 triangular pool rack.',
-  '{"tolerance":"0.2mm","alloy":"6061-T6","weight":"312g"}'::jsonb,
+  'Folding glass-filled nylon pool rack.',
+  '{"material":"PA12-GF","fold":"flat","weight":"168g"}'::jsonb,
   true
 );
 ```
@@ -99,6 +99,7 @@ Use the `whsec_…` the CLI prints as `STRIPE_WEBHOOK_SECRET`.
 
 ## 3D + performance
 
+- Hero visual is a config switch in `src/lib/hero-visual.ts`: `procedural` (current 3D triangle) or `spin` (360° photo sequence). Drop frames in `/public/spin` and flip the mode — no section rebuild.
 - Hero and exploded views lazy-load with `next/dynamic` (`ssr: false`).
 - Canvas `dpr` is capped at `[1, 2]`. Two or three lights. Primitive geometry only.
 - `prefers-reduced-motion`, low core/memory devices, save-data, missing WebGL, or a first-second FPS probe under ~28 all fall back to the SVG rack.
@@ -110,7 +111,7 @@ Force the fallback in DevTools: CPU 4× slowdown, or `prefers-reduced-motion: re
 
 ## Shareable spec cards
 
-`/og` and `/og?stat=tolerance|alloy|weight|bevel` return a 1200×630 branded card via `next/og`. Default Open Graph / Twitter images point here.
+`/og` and `/og?stat=fold|nylon|weight|bevel` return a 1200×630 branded card via `next/og`. Default Open Graph / Twitter images point here.
 
 ## Hidden shop talk
 

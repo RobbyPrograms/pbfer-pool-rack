@@ -17,7 +17,7 @@ export default function HeroCanvas({
   return (
     <Canvas
       dpr={[1, 2]}
-      camera={{ position: [0, 2.2, 3.4], fov: 38 }}
+      camera={{ position: [0, 2.05, 3.55], fov: 36 }}
       gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
       style={{ background: "transparent" }}
     >

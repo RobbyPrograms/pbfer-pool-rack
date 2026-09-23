@@ -38,7 +38,7 @@ export default function ExplodedCanvas({
   return (
     <Canvas
       dpr={[1, 2]}
-      camera={{ position: [0, 2.4, 3.6], fov: 36 }}
+      camera={{ position: [0, 2.15, 3.7], fov: 34 }}
       gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
     >
       <color attach="background" args={["#0A0A0B"]} />

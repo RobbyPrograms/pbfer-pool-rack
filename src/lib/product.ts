@@ -6,7 +6,7 @@ export const PRODUCT = {
   slug: "the-rack",
   priceCents: BRAND.priceCents,
   description:
-    "A machined triangular rack that holds a tight 15-ball pack. No flex. No warp. No pretending.",
+    "A folding nylon rack that holds a tight 15-ball pack. Locks open. Packs flat. No pretending.",
   specs: SPECS,
 };
 

@@ -23,10 +23,10 @@ export const metadata: Metadata = {
     template: `%s · ${BRAND.name}`,
   },
   description:
-    "A machined pool rack that actually racks tight. 6061 aluminum, 0.2 mm corners, no warp.",
+    "A folding pool rack that actually racks tight. Printed glass-filled nylon, locks open, packs flat.",
   openGraph: {
     title: `${BRAND.name} — ${BRAND.tagline}`,
-    description: "The first rack that treats tightness like a tolerance, not a vibe.",
+    description: "Printed nylon. Locks open. Folds flat. The pack holds.",
     images: ["/og"],
   },
   twitter: {

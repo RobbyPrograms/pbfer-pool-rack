@@ -3,51 +3,52 @@
 import { useMemo } from "react";
 import * as THREE from "three";
 
-const L = 2.15;
-const H = L * Math.sqrt(3) / 2;
-const RAIL_W = 0.16;
-const RAIL_H = 0.11;
-const BASE_Z = -H / 3;
-const APEX_Z = (2 * H) / 3;
+const SIDE = 2.05;
+const H = SIDE * Math.sqrt(3) / 2;
+const RAIL_W = 0.14;
+const RAIL_H = 0.1;
+const PIN_R = 0.075;
+const INSET = 0.18;
+
+/** Equilateral triangle in XZ, apex away from a +Z camera so it reads upright. */
+const VERTS = [
+  new THREE.Vector3(0, 0, (-2 / 3) * H),
+  new THREE.Vector3(-SIDE / 2, 0, H / 3),
+  new THREE.Vector3(SIDE / 2, 0, H / 3),
+] as const;
+
+function sideGeometry(index: 0 | 1 | 2) {
+  const a = VERTS[index];
+  const b = VERTS[(index + 1) % 3];
+  const dx = b.x - a.x;
+  const dz = b.z - a.z;
+  const len = Math.hypot(dx, dz);
+  const mid = new THREE.Vector3((a.x + b.x) / 2, 0, (a.z + b.z) / 2);
+  const angleY = Math.atan2(-dz, dx);
+  const outward = new THREE.Vector3(-dz, 0, dx).normalize();
+  if (outward.dot(mid) < 0) outward.negate();
+  return {
+    mid,
+    angleY,
+    length: Math.max(0.4, len - INSET * 2),
+    outward,
+  };
+}
+
+const SIDES = [sideGeometry(0), sideGeometry(1), sideGeometry(2)] as const;
 
 type RackModelProps = {
   explode?: number;
 };
 
-function railPose(index: 0 | 1 | 2, explode: number) {
-  const out = explode * 0.55;
-  if (index === 0) {
-    return {
-      position: new THREE.Vector3(0, 0, BASE_Z - out),
-      rotation: 0,
-    };
-  }
-  if (index === 1) {
-    return {
-      position: new THREE.Vector3(-L / 4 - out * 0.86, 0, H / 6 + out * 0.5),
-      rotation: Math.PI / 3,
-    };
-  }
-  return {
-    position: new THREE.Vector3(L / 4 + out * 0.86, 0, H / 6 + out * 0.5),
-    rotation: -Math.PI / 3,
-  };
-}
-
-const CORNERS = [
-  new THREE.Vector3(0, 0, APEX_Z),
-  new THREE.Vector3(-L / 2, 0, BASE_Z),
-  new THREE.Vector3(L / 2, 0, BASE_Z),
-];
-
 export function RackModel({ explode = 0 }: RackModelProps) {
-  const material = useMemo(
+  const nylon = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: "#1c1c20",
-        metalness: 0.72,
-        roughness: 0.38,
-        envMapIntensity: 0.4,
+        color: "#1a1a1e",
+        metalness: 0.18,
+        roughness: 0.62,
+        envMapIntensity: 0.25,
       }),
     [],
   );
@@ -56,42 +57,37 @@ export function RackModel({ explode = 0 }: RackModelProps) {
     () =>
       new THREE.MeshStandardMaterial({
         color: "#FF5A1F",
-        metalness: 0.2,
-        roughness: 0.45,
+        metalness: 0.15,
+        roughness: 0.4,
         emissive: "#FF5A1F",
-        emissiveIntensity: 0.35,
+        emissiveIntensity: 0.38,
       }),
     [],
   );
 
-  const rails: Array<{ i: 0 | 1 | 2 }> = [{ i: 0 }, { i: 1 }, { i: 2 }];
-
   return (
-    <group rotation={[0.38, 0.35, 0]}>
-      {rails.map(({ i }) => {
-        const pose = railPose(i, explode);
+    <group rotation={[0.12, 0.42, 0]}>
+      {SIDES.map((side, i) => {
+        const pos = side.mid
+          .clone()
+          .addScaledVector(side.outward, explode * 0.62);
         return (
-          <group key={i} position={pose.position} rotation={[0, pose.rotation, 0]}>
-            <mesh material={material} castShadow>
-              <boxGeometry args={[L, RAIL_H, RAIL_W]} />
+          <group key={`rail-${i}`} position={pos} rotation={[0, side.angleY, 0]}>
+            <mesh material={nylon} castShadow>
+              <boxGeometry args={[side.length, RAIL_H, RAIL_W]} />
             </mesh>
-            <mesh position={[0, RAIL_H / 2 + 0.006, RAIL_W * 0.12]} material={rim}>
-              <boxGeometry args={[L * 0.94, 0.012, RAIL_W * 0.42]} />
+            <mesh
+              position={[0, RAIL_H / 2 + 0.005, -RAIL_W * 0.18]}
+              material={rim}
+            >
+              <boxGeometry args={[side.length * 0.92, 0.012, RAIL_W * 0.38]} />
             </mesh>
           </group>
         );
       })}
-      {CORNERS.map((corner, i) => (
-        <mesh
-          key={`pin-${i}`}
-          position={[
-            corner.x * (1 + explode * 0.12),
-            0,
-            corner.z * (1 + explode * 0.12),
-          ]}
-          material={rim}
-        >
-          <cylinderGeometry args={[0.055, 0.055, RAIL_H + 0.02, 12]} />
+      {VERTS.map((v, i) => (
+        <mesh key={`hinge-${i}`} position={v} material={rim}>
+          <cylinderGeometry args={[PIN_R, PIN_R, RAIL_H + 0.025, 16]} />
         </mesh>
       ))}
     </group>

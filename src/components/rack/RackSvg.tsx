@@ -4,23 +4,36 @@ type RackSvgProps = {
   explode?: number;
 };
 
-const RAILS = [
-  { x: 50, y: 22, rot: 0 },
-  { x: 24, y: 68, rot: 60 },
-  { x: 76, y: 68, rot: -60 },
+const APEX = { x: 50, y: 20 };
+const LEFT = { x: 20, y: 74 };
+const RIGHT = { x: 80, y: 74 };
+
+const SIDES = [
+  { a: APEX, b: LEFT },
+  { a: LEFT, b: RIGHT },
+  { a: RIGHT, b: APEX },
 ] as const;
+
+function outward(a: { x: number; y: number }, b: { x: number; y: number }) {
+  const mx = (a.x + b.x) / 2;
+  const my = (a.y + b.y) / 2;
+  let nx = -(b.y - a.y);
+  let ny = b.x - a.x;
+  const len = Math.hypot(nx, ny) || 1;
+  nx /= len;
+  ny /= len;
+  if (nx * (mx - 50) + ny * (my - 50) < 0) {
+    nx *= -1;
+    ny *= -1;
+  }
+  return { nx, ny, mx, my };
+}
 
 export function RackSvg({
   className = "",
   glow = true,
   explode = 0,
 }: RackSvgProps) {
-  const offsets = [
-    { x: 0, y: -explode * 10 },
-    { x: -explode * 10, y: explode * 7 },
-    { x: explode * 10, y: explode * 7 },
-  ];
-
   return (
     <svg
       viewBox="0 0 100 100"
@@ -47,31 +60,40 @@ export function RackSvg({
         ) : null}
       </defs>
       <g filter={glow ? "url(#ember-glow)" : undefined}>
-        {RAILS.map((rail, i) => (
-          <g
-            key={i}
-            style={{
-              transform: `translate(${offsets[i].x}px, ${offsets[i].y}px)`,
-              transition: "transform 420ms cubic-bezier(.15,.9,.2,1)",
-            }}
-          >
-            <rect
-              x={rail.x - 28}
-              y={rail.y - 3.2}
-              width="56"
-              height="6.4"
-              rx="1.2"
-              transform={`rotate(${rail.rot} ${rail.x} ${rail.y})`}
-              fill="url(#rail)"
-              stroke="#FF5A1F"
-              strokeOpacity="0.55"
-              strokeWidth="0.45"
-            />
-          </g>
-        ))}
-        <circle cx="50" cy="22" r="2.1" fill="#1a1a1d" stroke="#FF5A1F" strokeWidth="0.4" />
-        <circle cx="24" cy="68" r="2.1" fill="#1a1a1d" stroke="#FF5A1F" strokeWidth="0.4" />
-        <circle cx="76" cy="68" r="2.1" fill="#1a1a1d" stroke="#FF5A1F" strokeWidth="0.4" />
+        {SIDES.map((side, i) => {
+          const { nx, ny, mx, my } = outward(side.a, side.b);
+          const ox = nx * explode * 11;
+          const oy = ny * explode * 11;
+          const angle =
+            (Math.atan2(side.b.y - side.a.y, side.b.x - side.a.x) * 180) /
+            Math.PI;
+          const span = Math.hypot(side.b.x - side.a.x, side.b.y - side.a.y) - 8;
+          return (
+            <g
+              key={i}
+              style={{
+                transform: `translate(${ox}px, ${oy}px)`,
+                transition: "transform 420ms cubic-bezier(.15,.9,.2,1)",
+              }}
+            >
+              <rect
+                x={mx - span / 2}
+                y={my - 3.1}
+                width={span}
+                height="6.2"
+                rx="1.1"
+                transform={`rotate(${angle} ${mx} ${my})`}
+                fill="url(#rail)"
+                stroke="#FF5A1F"
+                strokeOpacity="0.55"
+                strokeWidth="0.45"
+              />
+            </g>
+          );
+        })}
+        <circle cx={APEX.x} cy={APEX.y} r="2.2" fill="#1a1a1d" stroke="#FF5A1F" strokeWidth="0.4" />
+        <circle cx={LEFT.x} cy={LEFT.y} r="2.2" fill="#1a1a1d" stroke="#FF5A1F" strokeWidth="0.4" />
+        <circle cx={RIGHT.x} cy={RIGHT.y} r="2.2" fill="#1a1a1d" stroke="#FF5A1F" strokeWidth="0.4" />
       </g>
     </svg>
   );
@@ -94,14 +116,13 @@ export function RackFallback({
       style={
         tilt
           ? {
-              transform:
-                "perspective(900px) rotateX(12deg) rotateZ(-8deg)",
+              transform: "perspective(900px) rotateX(14deg) rotateZ(-6deg)",
             }
           : undefined
       }
     >
       <div className="absolute inset-[-18%] rounded-full bg-ember/10 blur-3xl" />
-      <RackSvg className="relative w-full h-full" explode={explode} />
+      <RackSvg className="relative h-full w-full" explode={explode} />
     </div>
   );
 }

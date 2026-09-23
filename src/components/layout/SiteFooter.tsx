@@ -32,7 +32,7 @@ export function SiteFooter() {
                   </a>
                 </li>
                 <li>
-                  <Link href="/og?stat=tolerance" className="hover:text-ember">
+                  <Link href="/og?stat=fold" className="hover:text-ember">
                     Spec card
                   </Link>
                 </li>

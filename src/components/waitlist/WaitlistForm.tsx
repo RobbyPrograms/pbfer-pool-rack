@@ -71,7 +71,7 @@ export function WaitlistForm({ compact = false }: { compact?: boolean }) {
             Get your name under the rail.
           </h3>
           <p className="mt-3 max-w-md text-paper-mute">
-            First {count.cap} on the list get their name laser-etched on the
+            First {count.cap} on the list get their name marked on the
             underside. After that, you just get restock notes.
           </p>
         </>

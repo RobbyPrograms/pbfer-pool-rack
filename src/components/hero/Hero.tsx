@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { HeroStage } from "@/components/rack/HeroStage";
 import { BRAND } from "@/lib/brand";
+import { HERO_VISUAL } from "@/lib/hero-visual";
 
 export function Hero() {
   return (
@@ -37,9 +38,9 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.16 }}
             className="mt-7 max-w-md text-lg leading-relaxed text-paper-mute"
           >
-            Cheap racks flex. Wood racks warp. This one is machined aluminum
-            with a 0.2&nbsp;mm corner. The pack locks. The break actually
-            means something.
+            Cheap racks flex. Wood racks warp. This one is printed in
+            glass-filled nylon, locks open at the corners, and folds flat
+            when you&apos;re done. The pack holds. The break means something.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -55,14 +56,16 @@ export function Hero() {
             </Link>
           </motion.div>
           <p className="mt-8 font-display text-[0.7rem] uppercase tracking-[0.2em] text-paper-mute">
-            6061-T6 · ±0.2 mm · lifetime against warp
+            PA12-GF · folds flat · locks at 60°
           </p>
         </div>
 
         <div className="relative h-[58vw] min-h-[320px] max-h-[620px] md:h-[70vh]">
           <HeroStage />
           <p className="pointer-events-none absolute bottom-2 right-2 hidden font-display text-[0.62rem] uppercase tracking-[0.2em] text-paper-mute/70 md:block">
-            Render, not a photo. Drag it.
+            {HERO_VISUAL.mode === "spin"
+              ? "Drag to spin."
+              : "Render, not a photo. Drag it."}
           </p>
         </div>
       </div>

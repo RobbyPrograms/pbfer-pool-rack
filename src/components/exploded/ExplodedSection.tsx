@@ -60,14 +60,14 @@ export function ExplodedSection() {
             No excuses.
           </h2>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-paper-mute">
-            Scroll it apart. Three identical extrusions, pinned at the corners,
-            beveled on the inside face. Nothing to loosen. Nothing to swell.
-            If a part can warp, we didn&apos;t use it.
+            Scroll it apart. Same triangle as the hero — three identical
+            nylon rails, hinged at the corners. They slide off the pins,
+            then they go back on. That&apos;s the whole machine.
           </p>
           <dl className="mt-10 space-y-4 text-sm">
             {[
-              ["01", "Rails", "6061 extrusion, 15° inner chamfer"],
-              ["02", "Pins", "Pressed stainless, no threads to back out"],
+              ["01", "Rails", "Glass-filled nylon, 15° printed seat"],
+              ["02", "Hinges", "Corner detents. Lock open, fold flat."],
               ["03", "Seat", "Balls drop in. They don't climb the wall."],
             ].map(([n, title, copy]) => (
               <div

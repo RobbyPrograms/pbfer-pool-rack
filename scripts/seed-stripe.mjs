@@ -14,7 +14,7 @@ const stripe = new Stripe(key);
 const product = await stripe.products.create({
   name: "The Rack",
   description:
-    "Machined 6061-T6 triangular pool rack. 0.2 mm corner tolerance. Lifetime against warp.",
+    "Folding glass-filled nylon pool rack. Locks open at the corners. Packs flat.",
 });
 const price = await stripe.prices.create({
   product: product.id,

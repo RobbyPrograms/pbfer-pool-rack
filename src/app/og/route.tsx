@@ -4,15 +4,15 @@ import { NextRequest } from "next/server";
 export const runtime = "edge";
 
 const STATS: Record<string, { num: string; label: string }> = {
-  tolerance: { num: "0.2 mm", label: "Corner tolerance" },
-  alloy: { num: "6061-T6", label: "Aircraft aluminum" },
-  weight: { num: "312 g", label: "Ready weight" },
-  bevel: { num: "15°", label: "Seating chamfer" },
+  fold: { num: "FLAT", label: "Folds at the corners" },
+  nylon: { num: "PA12-GF", label: "Glass-filled nylon" },
+  weight: { num: "168 g", label: "Ready weight" },
+  bevel: { num: "15°", label: "Printed seat" },
 };
 
 export async function GET(request: NextRequest) {
-  const stat = request.nextUrl.searchParams.get("stat") || "tolerance";
-  const picked = STATS[stat] ?? STATS.tolerance;
+  const stat = request.nextUrl.searchParams.get("stat") || "fold";
+  const picked = STATS[stat] ?? STATS.fold;
 
   return new ImageResponse(
     (

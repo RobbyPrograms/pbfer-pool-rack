@@ -27,6 +27,9 @@ export function SiteHeader() {
           <Link href="#problem" className="hover:text-paper">
             Problem
           </Link>
+          <Link href="#fold" className="hover:text-paper">
+            Fold
+          </Link>
           <Link href="#anatomy" className="hover:text-paper">
             Anatomy
           </Link>

@@ -12,14 +12,14 @@ export function Difference() {
           <div>
             <p className="kicker">How it&apos;s different</p>
             <h2 className="display mt-4 max-w-3xl text-4xl sm:text-6xl">
-              Built like a fixture.
+              Printed to lock.
               <br />
-              Sold like a rack.
+              Built to fold.
             </h2>
           </div>
           <p className="max-w-sm text-paper-mute">
-            Not a feature grid. Four numbers that actually change how the
-            pack sits.
+            Not a feature grid. Four facts that actually change how the
+            pack sits — and where the rack lives when it isn&apos;t.
           </p>
         </div>
 

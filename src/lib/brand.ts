@@ -11,24 +11,27 @@ export const BRAND = {
   paper: "#F3EEE4",
   paperMute: "#A39C90",
   felt: "#1F4A3A",
+  material: "Glass-filled nylon",
+  materialShort: "PA12-GF",
 } as const;
 
 export const SPECS = [
-  { label: "Frame", value: "6061-T6 aluminum" },
-  { label: "Finish", value: "Hard-anodized, matte" },
-  { label: "Corner tolerance", value: "±0.2 mm" },
-  { label: "Weight", value: "312 g" },
-  { label: "Outer edge", value: "280 mm" },
+  { label: "Frame", value: "SLS-printed glass-filled nylon (PA12-GF)" },
+  { label: "Finish", value: "As-printed, matte charcoal" },
+  { label: "Hinges", value: "Locking corner hinges, three of them" },
+  { label: "Folded", value: "Flat — 280 × 28 × 14 mm sleeve" },
+  { label: "Open lock", value: "Positive detent at 60° per corner" },
+  { label: "Weight", value: "168 g" },
+  { label: "Outer edge (open)", value: "280 mm" },
   { label: "Ball size", value: "2¼″ regulation" },
-  { label: "Rail bevel", value: "15° seating chamfer" },
-  { label: "Joints", value: "Pinned, no fasteners" },
+  { label: "Rail seat", value: "15° printed chamfer" },
   { label: "Compatibility", value: "7–9 ft tables, 15-ball rack" },
-  { label: "Warranty", value: "Lifetime against warp" },
+  { label: "Warranty", value: "Replace it if a hinge lets go" },
 ] as const;
 
 export const STATS = [
-  { num: "0.2", unit: "mm", label: "Corner tolerance. Not a vibe. A number." },
-  { num: "6061", unit: "", label: "T6 aluminum. Same alloy as bike frames that don't banana." },
-  { num: "312", unit: "g", label: "Light enough to toss. Heavy enough to stay put." },
-  { num: "15", unit: "°", label: "Rail bevel that seats balls instead of riding them." },
+  { num: "PA12", unit: "", label: "Glass-filled nylon. Printed as one family of parts, not a cheap injection lump." },
+  { num: "3", unit: "", label: "Corner hinges. Pinch the latch, it goes flat. Snap it open, it locks." },
+  { num: "168", unit: "g", label: "Light enough for a drawer. Stiff enough that the pack doesn't yawn." },
+  { num: "15", unit: "°", label: "Printed seat. Balls drop in. They don't climb the wall." },
 ] as const;
