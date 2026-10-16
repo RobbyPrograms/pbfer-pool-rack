@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Instrument_Sans, Space_Grotesk } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Providers } from "@/components/providers";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
@@ -48,6 +49,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${display.variable} ${body.variable} bg-ink text-paper antialiased`}>
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
