@@ -6,7 +6,7 @@ import { STATS } from "@/lib/brand";
 export function Difference() {
   return (
     <section id="difference" className="relative overflow-hidden">
-      <div className="pointer-events-none absolute -right-24 top-20 h-72 w-72 rotate-45 border border-ink-line" />
+      <div className="pointer-events-none absolute -right-24 top-20 hidden h-72 w-72 rotate-45 border border-ink-line md:block" />
       <div className="mx-auto max-w-site px-5 py-24 md:px-8 lg:py-32">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
@@ -33,7 +33,7 @@ export function Difference() {
               transition={{ duration: 0.45, delay: i * 0.05 }}
               className="bg-ink px-6 py-10 md:px-10 md:py-14"
             >
-              <p className="display text-[18vw] leading-none text-ember sm:text-8xl md:text-9xl">
+              <p className="display text-[16vw] leading-none text-ember sm:text-8xl md:text-9xl">
                 {stat.num}
                 <span className="align-top text-3xl text-ember/80 md:text-4xl">
                   {stat.unit}

@@ -3,11 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { HERO_VISUAL } from "@/lib/hero-visual";
-import {
-  canCreateWebGL,
-  probeFps,
-  readDeviceProfile,
-} from "@/lib/device";
+import { canCreateWebGL, readDeviceProfile } from "@/lib/device";
 import { PhotoSpin } from "./PhotoSpin";
 import { RackFallback } from "./RackSvg";
 import { WebGLErrorBoundary } from "./WebGLErrorBoundary";
@@ -25,19 +21,12 @@ export function HeroStage() {
 
   useEffect(() => {
     const profile = readDeviceProfile();
-    setAllowDrag(!profile.isMobile);
+    setAllowDrag(true);
     setAutoRotate(!profile.reducedMotion);
 
     if (HERO_VISUAL.mode === "spin") return;
 
-    if (profile.preferFallback || !canCreateWebGL()) {
-      setMode("fallback");
-    } else {
-      setMode("3d");
-      probeFps(800).then((fps) => {
-        if (fps < 28) setMode("fallback");
-      });
-    }
+    setMode(canCreateWebGL() ? "3d" : "fallback");
 
     const onScroll = () => {
       const y = window.scrollY;

@@ -19,10 +19,10 @@ export function Specs() {
             {SPECS.map((row) => (
               <div
                 key={row.label}
-                className="grid grid-cols-[1fr_auto] items-baseline gap-6 py-4 text-sm sm:text-base"
+                className="grid gap-1 py-4 text-sm sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-6 sm:text-base"
               >
                 <dt className="text-paper-mute">{row.label}</dt>
-                <dd className="font-display text-paper">{row.value}</dd>
+                <dd className="font-display text-paper sm:text-right">{row.value}</dd>
               </div>
             ))}
           </dl>

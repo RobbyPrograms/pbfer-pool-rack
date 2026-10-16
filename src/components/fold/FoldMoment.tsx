@@ -32,7 +32,7 @@ export function FoldMoment() {
 
         <div className="relative min-h-[320px] bg-ink-raised hairline">
           <FoldGraphic flat={flat} />
-          <p className="absolute bottom-4 left-4 font-display text-[0.62rem] uppercase tracking-[0.18em] text-paper-mute">
+          <p className="absolute bottom-4 left-4 right-4 font-display text-[0.62rem] uppercase tracking-[0.18em] text-paper-mute">
             {flat ? "14 mm pack — how it ships" : "Locked open — how it racks"}
           </p>
         </div>
@@ -64,7 +64,7 @@ function FoldGraphic({ flat }: { flat: boolean }) {
           height="6"
           rx="1.2"
           fill="#1c1c20"
-          stroke="#FF5A1F"
+          stroke="#AD3211"
           strokeWidth="0.5"
         />
       </g>
@@ -82,7 +82,7 @@ function FoldGraphic({ flat }: { flat: boolean }) {
           height="6"
           rx="1.2"
           fill="#1c1c20"
-          stroke="#FF5A1F"
+          stroke="#AD3211"
           strokeWidth="0.5"
         />
       </g>
@@ -95,7 +95,7 @@ function FoldGraphic({ flat }: { flat: boolean }) {
         <circle
           r="2.6"
           fill="#1a1a1d"
-          stroke="#FF5A1F"
+          stroke="#AD3211"
           strokeWidth="0.5"
         />
       </g>

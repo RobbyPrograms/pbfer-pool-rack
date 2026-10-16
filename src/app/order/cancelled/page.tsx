@@ -21,8 +21,8 @@ export default function OrderCancelledPage() {
           <Link href="/#buy" className="ember-btn">
             Try again
           </Link>
-          <Link href="/#toy" className="ghost-btn">
-            Play with tightness
+          <Link href="/#fold" className="ghost-btn">
+            See it fold
           </Link>
         </div>
       </main>

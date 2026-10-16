@@ -26,8 +26,8 @@ export default function OrderSuccessPage({
           <Link href="/" className="ember-btn">
             Back to the rack
           </Link>
-          <Link href="/#waitlist" className="ghost-btn">
-            Join the etch list
+          <Link href="/#buy" className="ghost-btn">
+            Buy another
           </Link>
         </div>
       </main>
