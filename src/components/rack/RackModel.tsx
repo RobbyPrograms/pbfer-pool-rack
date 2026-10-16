@@ -48,10 +48,10 @@ export function RackModel({ explode = 0 }: RackModelProps) {
   const rim = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: "#FF5A1F",
+        color: "#AD3211",
         metalness: 0.15,
         roughness: 0.4,
-        emissive: "#FF5A1F",
+        emissive: "#AD3211",
         emissiveIntensity: 0.38,
       }),
     [],

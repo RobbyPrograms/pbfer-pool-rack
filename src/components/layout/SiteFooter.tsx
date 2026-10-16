@@ -47,7 +47,11 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="mt-16 flex flex-wrap items-end justify-between gap-4 border-t border-ink-line pt-6 text-xs text-paper-mute">
-          <p className="font-display tracking-brand">PBFER</p>
+          <img
+            src="/brand/built-tree.png"
+            alt="Built Tree"
+            className="h-5 w-auto"
+          />
           <p>© {new Date().getFullYear()} · One product. Built like we meant it.</p>
         </div>
       </div>

@@ -3,19 +3,25 @@
 @tailwind utilities;
 
 :root {
-  --ink: #0a0a0b;
-  --ink-raised: #111113;
-  --ink-line: #1c1c1f;
+  --ink: #19191c;
+  --ink-raised: #222226;
+  --ink-line: #323238;
   --paper: #f3eee4;
   --paper-mute: #a39c90;
-  --ember: #ff5a1f;
-  --ember-dim: #c43d10;
+  --ember: #ad3211;
+  --ember-dim: #8a270e;
   --felt: #1f4a3a;
   --chalk: #d8d2c6;
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -117,7 +123,7 @@ body {
   }
 
   .ember-btn:hover {
-    background: #ff6d38;
+    background: #c43b14;
   }
 
   .ember-btn:active {

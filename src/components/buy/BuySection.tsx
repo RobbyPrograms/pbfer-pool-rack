@@ -53,7 +53,7 @@ export function BuySection() {
             That&apos;s it.
           </p>
 
-          <form onSubmit={checkout} className="mt-8 flex flex-wrap items-center gap-4">
+          <form onSubmit={checkout} className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <label className="flex items-center gap-3 border border-ink-line px-3 py-2">
               <span className="kicker !text-[0.6rem]">Qty</span>
               <select
@@ -68,7 +68,7 @@ export function BuySection() {
                 ))}
               </select>
             </label>
-            <button type="submit" className="ember-btn" disabled={busy}>
+            <button type="submit" className="ember-btn w-full sm:w-auto" disabled={busy}>
               {busy ? "Opening Stripe…" : "Buy Now"}
             </button>
           </form>

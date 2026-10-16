@@ -37,7 +37,7 @@ export function RackSvg({
               dx="0"
               dy="0"
               stdDeviation="1.4"
-              floodColor="#FF5A1F"
+              floodColor="#AD3211"
               floodOpacity="0.55"
             />
           </filter>
@@ -69,7 +69,7 @@ export function RackSvg({
                 rx="1.1"
                 transform={`rotate(${angle} ${mx} ${my})`}
                 fill="url(#rail)"
-                stroke="#FF5A1F"
+                stroke="#AD3211"
                 strokeOpacity="0.55"
                 strokeWidth="0.45"
               />
@@ -81,7 +81,7 @@ export function RackSvg({
           cy={APEX.y}
           r="2.4"
           fill="#1a1a1d"
-          stroke="#FF5A1F"
+          stroke="#AD3211"
           strokeWidth="0.45"
         />
       </g>

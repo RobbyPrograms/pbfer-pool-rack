@@ -9,7 +9,7 @@ const ITEMS = [
   },
   {
     q: "What is it actually made of?",
-    a: "SLS-printed glass-filled nylon (PA12-GF). Two rails. One apex pin. No third bar — the table cushion is the third side. No wood. No cheap injection plastic that bows when you lean on the 1-ball.",
+    a: "SLS-printed glass-filled nylon (PAL). Two rails. One apex pin. No third bar — the table cushion is the third side. No wood. No cheap injection plastic that bows when you lean on the 1-ball.",
   },
   {
     q: "How does the fold work?",
@@ -22,10 +22,6 @@ const ITEMS = [
   {
     q: "Does it work on a 7-foot table?",
     a: "Yes. Regulation 2¼″ balls, 15-ball rack, 7–9 ft tables. Bar boxes included. We didn't make a cute 9-ball-only object.",
-  },
-  {
-    q: "Can I get my name on it?",
-    a: "The first 100 people on the waitlist get their name marked on the underside. After that, it's a paid extra when we open it up.",
   },
 ];
 
@@ -41,7 +37,7 @@ export function Faq() {
             <button
               type="button"
               onClick={() => setOpen(isOpen ? null : i)}
-              className="flex w-full items-baseline justify-between gap-6 py-5 text-left"
+              className="flex w-full items-baseline justify-between gap-4 py-5 text-left"
               aria-expanded={isOpen}
             >
               <span className="font-display text-lg">{item.q}</span>

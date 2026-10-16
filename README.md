@@ -74,7 +74,7 @@ values (
   18900,
   'price_YOUR_TEST_PRICE',
   'Folding glass-filled nylon pool rack.',
-  '{"material":"PA12-GF","fold":"flat","weight":"168g"}'::jsonb,
+  '{"material":"PAL","fold":"flat","weight":"238g"}'::jsonb,
   true
 );
 ```
