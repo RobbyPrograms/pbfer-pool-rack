@@ -32,7 +32,7 @@ export function BuySection() {
   }
 
   return (
-    <section id="buy" className="border-t border-ink-line">
+    <section id="shop" className="border-t border-ink-line">
       <div className="mx-auto grid max-w-site gap-16 px-5 py-24 md:grid-cols-2 md:px-8 lg:py-32">
         <div className="relative min-h-[320px] bg-ink-raised hairline">
           <div className="absolute inset-0 flex items-center justify-center p-10">
@@ -80,7 +80,7 @@ export function BuySection() {
             </p>
           )}
 
-          <div className="mt-12">
+          <div id="support" className="mt-12">
             <p className="kicker mb-2">FAQ</p>
             <Faq />
           </div>

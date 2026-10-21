@@ -39,9 +39,9 @@ export function SiteFooter() {
               </ul>
             </div>
             <nav className="flex flex-wrap gap-5 text-sm text-paper-mute">
-              <Link href="#specs">Specs</Link>
-              <Link href="#founder">Note</Link>
-              <Link href="#buy">Buy</Link>
+              <Link href="/#specs">Specs</Link>
+              <Link href="/#about">About</Link>
+              <Link href="/#shop">Shop</Link>
               <Link href="/order/success">Orders</Link>
             </nav>
           </div>
@@ -49,7 +49,7 @@ export function SiteFooter() {
         <div className="mt-16 flex flex-wrap items-end justify-between gap-4 border-t border-ink-line pt-6 text-xs text-paper-mute">
           <img
             src="/brand/built-tree.png"
-            alt="Built Tree"
+            alt="Built True"
             className="h-5 w-auto"
           />
           <p>© {new Date().getFullYear()} · One product. Built like we meant it.</p>

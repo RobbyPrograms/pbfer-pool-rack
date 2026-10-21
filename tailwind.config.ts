@@ -26,8 +26,8 @@ const config: Config = {
         chalk: "var(--chalk)",
       },
       fontFamily: {
-        display: ["var(--font-display)", "sans-serif"],
-        body: ["var(--font-body)", "sans-serif"],
+        display: ["var(--font-industry)", "Arial Narrow", "sans-serif"],
+        body: ["var(--font-industry)", "Arial Narrow", "sans-serif"],
       },
       letterSpacing: {
         tightest: "-0.04em",

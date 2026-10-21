@@ -18,11 +18,8 @@ export default function OrderCancelledPage() {
           much commitment for a Tuesday, that&apos;s fair.
         </p>
         <div className="mt-10 flex flex-wrap gap-4">
-          <Link href="/#buy" className="ember-btn">
+          <Link href="/#shop" className="ember-btn">
             Try again
-          </Link>
-          <Link href="/#fold" className="ghost-btn">
-            See it fold
           </Link>
         </div>
       </main>

@@ -1,6 +1,6 @@
 export function FounderNote() {
   return (
-    <section id="founder" className="relative overflow-hidden border-t border-ink-line ripple">
+    <section id="about" className="relative overflow-hidden border-t border-ink-line ripple">
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
         style={{

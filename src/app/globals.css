@@ -41,7 +41,7 @@ body {
 body {
   color: var(--paper);
   background: var(--ink);
-  font-family: var(--font-body), sans-serif;
+  font-family: var(--font-industry), "Arial Narrow", sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -91,14 +91,14 @@ body {
 
 @layer components {
   .display {
-    font-family: var(--font-display), sans-serif;
+    font-family: var(--font-industry), "Arial Narrow", sans-serif;
     font-weight: 600;
     letter-spacing: -0.04em;
     line-height: 0.88;
   }
 
   .kicker {
-    font-family: var(--font-display), sans-serif;
+    font-family: var(--font-industry), "Arial Narrow", sans-serif;
     font-size: 0.68rem;
     font-weight: 500;
     letter-spacing: 0.22em;
@@ -113,7 +113,7 @@ body {
     gap: 0.65rem;
     background: var(--ember);
     color: var(--ink);
-    font-family: var(--font-display), sans-serif;
+    font-family: var(--font-industry), "Arial Narrow", sans-serif;
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -136,7 +136,7 @@ body {
     justify-content: center;
     border: 1px solid var(--ink-line);
     color: var(--paper);
-    font-family: var(--font-display), sans-serif;
+    font-family: var(--font-industry), "Arial Narrow", sans-serif;
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;

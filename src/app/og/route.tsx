@@ -13,8 +13,9 @@ const STATS: Record<string, { num: string; label: string }> = {
 export async function GET(request: NextRequest) {
   const stat = request.nextUrl.searchParams.get("stat") || "fold";
   const picked = STATS[stat] ?? STATS.fold;
-  const logo = await readFile(join(process.cwd(), "public/brand/built-tree.png"));
-  const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
+  const industry = await readFile(
+    join(process.cwd(), "src/fonts/industry/Industry-Black.ttf"),
+  );
 
   return new ImageResponse(
     (
@@ -28,11 +29,11 @@ export async function GET(request: NextRequest) {
           background: "#19191C",
           color: "#F3EEE4",
           padding: "64px 72px",
-          fontFamily: "sans-serif",
+          fontFamily: "Industry",
         }}
       >
-        <div style={{ display: "flex" }}>
-          <img src={logoSrc} width={280} height={62} alt="Built Tree" />
+        <div style={{ display: "flex", fontSize: 42, letterSpacing: "-0.03em" }}>
+          BuiltTrue
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
@@ -70,6 +71,10 @@ export async function GET(request: NextRequest) {
         </div>
       </div>
     ),
-    { width: 1200, height: 630 },
+    {
+      width: 1200,
+      height: 630,
+      fonts: [{ name: "Industry", data: industry, weight: 900, style: "normal" }],
+    },
   );
 }

@@ -26,7 +26,7 @@ export default function OrderSuccessPage({
           <Link href="/" className="ember-btn">
             Back to the rack
           </Link>
-          <Link href="/#buy" className="ghost-btn">
+          <Link href="/#shop" className="ghost-btn">
             Buy another
           </Link>
         </div>

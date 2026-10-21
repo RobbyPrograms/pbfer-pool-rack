@@ -23,7 +23,7 @@ export function ExplodedSection() {
 
   return (
     <section
-      id="anatomy"
+      id="gallery"
       className="relative scroll-mt-24 overflow-x-clip border-y border-ink-line"
     >
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ember/70 to-transparent" />
