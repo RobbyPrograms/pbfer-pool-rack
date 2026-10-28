@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 export default function OrderSuccessPage({
   searchParams,
 }: {
-  searchParams: Promise<{ session_id?: string }>;
+  searchParams: Promise<{ session_id?: string; orderId?: string }>;
 }) {
   return (
     <>
@@ -18,7 +18,7 @@ export default function OrderSuccessPage({
           two rails.
         </h1>
         <p className="mt-6 text-lg text-paper-mute">
-          Stripe has the receipt. We have the order. You&apos;ll get a
+          Square has the receipt. We have the order. You&apos;ll get a
           shipping note when it leaves the bench — not a week of silence.
         </p>
         <SuccessSession searchParams={searchParams} />
@@ -39,13 +39,14 @@ export default function OrderSuccessPage({
 async function SuccessSession({
   searchParams,
 }: {
-  searchParams: Promise<{ session_id?: string }>;
+  searchParams: Promise<{ session_id?: string; orderId?: string }>;
 }) {
-  const { session_id } = await searchParams;
-  if (!session_id) return null;
+  const params = await searchParams;
+  const ref = params.orderId || params.session_id;
+  if (!ref) return null;
   return (
     <p className="mt-6 font-display text-[0.7rem] uppercase tracking-[0.16em] text-paper-mute">
-      Ref {session_id.slice(0, 18)}
+      Ref {ref.slice(0, 18)}
     </p>
   );
 }

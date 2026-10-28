@@ -14,8 +14,7 @@ export default function OrderCancelledPage() {
           charged.
         </h1>
         <p className="mt-6 text-lg text-paper-mute">
-          Checkout closed. The rack is still here. If Stripe felt like too
-          much commitment for a Tuesday, that&apos;s fair.
+          Checkout closed. The rack is still here. Nothing left the bench.
         </p>
         <div className="mt-10 flex flex-wrap gap-4">
           <Link href="/#shop" className="ember-btn">

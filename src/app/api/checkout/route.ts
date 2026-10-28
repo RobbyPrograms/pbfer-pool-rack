@@ -1,10 +1,14 @@
+import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
-import { getStripe, getStripePriceId } from "@/lib/stripe";
-import { getSupabaseAdmin } from "@/lib/supabase/admin";
+import { BRAND } from "@/lib/brand";
+import { getSquareConfig, squareFetch } from "@/lib/square";
+
+type PaymentLinkResponse = {
+  payment_link?: { url?: string; id?: string; order_id?: string };
+};
 
 export async function POST(request: Request) {
-  const stripe = getStripe();
-  const priceId = getStripePriceId();
+  const square = getSquareConfig();
   const origin =
     process.env.NEXT_PUBLIC_SITE_URL ||
     request.headers.get("origin") ||
@@ -15,47 +19,57 @@ export async function POST(request: Request) {
   };
   const quantity = Math.min(4, Math.max(1, Number(body.quantity) || 1));
 
-  if (!stripe || !priceId) {
+  if (!square.ready) {
     return NextResponse.json(
       {
         error:
-          "Stripe isn't wired yet. Add STRIPE_SECRET_KEY and STRIPE_PRICE_ID to .env.local.",
+          "Square isn't wired yet. Add SQUARE_ACCESS_TOKEN and SQUARE_LOCATION_ID.",
       },
       { status: 503 },
     );
   }
 
-  let productId: string | undefined;
-  const admin = getSupabaseAdmin();
-  if (admin) {
-    const { data } = await admin
-      .from("products")
-      .select("id")
-      .eq("slug", "the-rack")
-      .eq("active", true)
-      .maybeSingle();
-    productId = data?.id;
-  }
-
-  const session = await stripe.checkout.sessions.create({
-    mode: "payment",
-    line_items: [{ price: priceId, quantity }],
-    success_url: `${origin}/order/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/order/cancelled`,
-    shipping_address_collection: { allowed_countries: ["US", "CA", "GB", "AU"] },
-    metadata: {
-      product_slug: "the-rack",
-      product_id: productId ?? "",
-      quantity: String(quantity),
-    },
-  });
-
-  if (!session.url) {
-    return NextResponse.json(
-      { error: "Stripe did not return a checkout URL." },
-      { status: 500 },
+  try {
+    const created = await squareFetch<PaymentLinkResponse>(
+      "/v2/online-checkout/payment-links",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          idempotency_key: randomUUID(),
+          description: `${BRAND.product} × ${quantity}`,
+          order: {
+            location_id: square.locationId,
+            line_items: [
+              {
+                name: BRAND.product,
+                quantity: String(quantity),
+                base_price_money: {
+                  amount: BRAND.priceCents,
+                  currency: "USD",
+                },
+              },
+            ],
+          },
+          checkout_options: {
+            redirect_url: `${origin}/order/success`,
+            ask_for_shipping_address: true,
+            allow_tipping: false,
+          },
+        }),
+      },
     );
-  }
 
-  return NextResponse.json({ url: session.url });
+    const url = created.payment_link?.url;
+    if (!url) {
+      return NextResponse.json(
+        { error: "Square did not return a checkout URL." },
+        { status: 500 },
+      );
+    }
+
+    return NextResponse.json({ url });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Square checkout failed.";
+    return NextResponse.json({ error: message }, { status: 502 });
+  }
 }

@@ -69,14 +69,14 @@ export function BuySection() {
               </select>
             </label>
             <button type="submit" className="ember-btn w-full sm:w-auto" disabled={busy}>
-              {busy ? "Opening Stripe…" : "Buy Now"}
+              {busy ? "Opening Square…" : "Buy Now"}
             </button>
           </form>
           {error ? (
             <p className="mt-4 text-sm text-ember">{error}</p>
           ) : (
             <p className="mt-4 text-sm text-paper-mute">
-              Hosted Stripe Checkout. No card form on this page.
+              Hosted by Square. No card form on this page.
             </p>
           )}
 
