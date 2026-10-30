@@ -1,20 +1,32 @@
 import type { Metadata } from "next";
-import { Instrument_Sans, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { Providers } from "@/components/providers";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
 
-const display = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["400", "500", "600", "700"],
-});
-
-const body = Instrument_Sans({
-  subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["400", "500", "600"],
+const industry = localFont({
+  src: [
+    { path: "../fonts/industry/Industry-Thin.ttf", weight: "100", style: "normal" },
+    { path: "../fonts/industry/Industry-ThinItalic.ttf", weight: "100", style: "italic" },
+    { path: "../fonts/industry/Industry-Light.ttf", weight: "300", style: "normal" },
+    { path: "../fonts/industry/Industry-LightItalic.ttf", weight: "300", style: "italic" },
+    { path: "../fonts/industry/Industry-Book.ttf", weight: "400", style: "normal" },
+    { path: "../fonts/industry/Industry-BookItalic.ttf", weight: "400", style: "italic" },
+    { path: "../fonts/industry/Industry-Medium.ttf", weight: "500", style: "normal" },
+    { path: "../fonts/industry/Industry-MediumItalic.ttf", weight: "500", style: "italic" },
+    { path: "../fonts/industry/Industry-Demi.ttf", weight: "600", style: "normal" },
+    { path: "../fonts/industry/Industry-DemiItalic.ttf", weight: "600", style: "italic" },
+    { path: "../fonts/industry/Industry-Bold.ttf", weight: "700", style: "normal" },
+    { path: "../fonts/industry/Industry-BoldItalic.ttf", weight: "700", style: "italic" },
+    { path: "../fonts/industry/Industry-Black.ttf", weight: "900", style: "normal" },
+    { path: "../fonts/industry/Industry-BlackItalic.ttf", weight: "900", style: "italic" },
+    { path: "../fonts/industry/Industry-Ultra.ttf", weight: "950", style: "normal" },
+    { path: "../fonts/industry/Industry-UltraItalic.ttf", weight: "950", style: "italic" },
+  ],
+  variable: "--font-industry",
+  display: "swap",
+  fallback: ["Arial Narrow", "Arial", "sans-serif"],
 });
 
 export const metadata: Metadata = {
@@ -47,7 +59,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${display.variable} ${body.variable} bg-ink text-paper antialiased`}>
+      <body className={`${industry.variable} bg-ink text-paper antialiased`}>
         <Providers>{children}</Providers>
         <Analytics />
       </body>

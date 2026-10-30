@@ -6,7 +6,7 @@ const SLOTS = [
 
 export function SocialProof() {
   return (
-    <section className="border-t border-ink-line bg-ink-raised">
+    <section id="reviews" className="border-t border-ink-line bg-ink-raised">
       <div className="mx-auto max-w-site px-5 py-20 md:px-8">
         <p className="kicker">Social proof</p>
         <h2 className="display mt-4 text-3xl sm:text-5xl">

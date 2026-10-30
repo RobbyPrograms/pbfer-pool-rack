@@ -1,15 +1,62 @@
 # PBFER — The Rack
 
-One-product site for a machined pool rack. Next.js App Router, a lightweight React Three Fiber hero with a CSS/SVG fallback, Stripe Checkout, and a Supabase waitlist.
+One-product site for a machined pool rack. Next.js, a 3D hero, Square checkout, and a Supabase waitlist.
 
-## Stack
+Buy Now sends the shopper to Square’s own checkout page. Card numbers never touch this site.
 
-- Next.js 15 (App Router) + TypeScript + Tailwind
-- React Three Fiber + drei (lazy-loaded, `ssr: false`)
-- Framer Motion for page motion only
-- Supabase (Postgres + RLS)
-- Stripe Checkout + webhooks
-- Vercel (`@vercel/og` / `next/og` spec cards)
+## What to store in Vercel
+
+Vercel keeps secrets for the live site. You paste them once. The site reads them when it runs. You do not put them in the code, and you do not commit them.
+
+1. Open [vercel.com](https://vercel.com) and open this project.
+2. Go to **Settings → Environment Variables**.
+3. For each row below, click **Add**, paste the name, paste the value, and check **Production**. Check **Preview** too if you want checkout on preview links.
+4. Save, then **Deployments → ⋯ on the latest deploy → Redeploy**. A new variable does nothing until the next deploy.
+
+| Name | What to paste | Secret? |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Your live address, like `https://your-domain.com`. No slash at the end. | No. This one is public. |
+| `SQUARE_ENV` | `sandbox` while you are testing. `production` when you want real cards. | No |
+| `SQUARE_ACCESS_TOKEN` | From Square. Starts with a long random string. Sandbox token while testing, production token when you go live. | Yes. Never start the name with `NEXT_PUBLIC_`. |
+| `SQUARE_LOCATION_ID` | From the same Square page. Looks like `L…` | Yes |
+| `SQUARE_WEBHOOK_SIGNATURE_KEY` | From the Square webhook you create below. Skip this until you want orders saved in Supabase. | Yes |
+| `SQUARE_WEBHOOK_URL` | Exactly `https://your-domain.com/api/webhooks/square` | No |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase → Project Settings → API. Looks like `https://something.supabase.co` | No |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Same page. The anon / publishable key. | Safe in the browser |
+| `SUPABASE_SERVICE_ROLE_KEY` | Same page. The service role key. | Yes. Never start the name with `NEXT_PUBLIC_`. |
+
+Same names go in `.env.local` on your computer if you want checkout while running `npm run dev`. Copy `.env.example` to `.env.local` and fill the blanks. `.env.local` stays on your machine.
+
+The amount Square charges is `priceCents` in `src/lib/brand.ts` (`5999`, which is $59.99). The price on the page is `priceLabel`. Keep those two the same.
+
+## Where to get the Square values
+
+1. Go to [developer.squareup.com/apps](https://developer.squareup.com/apps) and sign in.
+2. Open your app, or click **+** and create one.
+3. Open the **Sandbox** tab while testing.
+4. Copy **Sandbox Access Token** into `SQUARE_ACCESS_TOKEN`.
+5. Open **Locations** (still in Sandbox) and copy the location id into `SQUARE_LOCATION_ID`.
+6. Leave `SQUARE_ENV` as `sandbox`.
+7. Use a [Square sandbox test card](https://developer.squareup.com/docs/devtools/sandbox/payments) at checkout. A real card will not work in sandbox.
+
+When you are ready for real money:
+
+1. In the Square app, open the **Production** tab and copy the production access token and the production location id.
+2. In Vercel, change `SQUARE_ACCESS_TOKEN`, `SQUARE_LOCATION_ID`, and set `SQUARE_ENV` to `production`.
+3. Redeploy.
+
+## Saving the order after they pay
+
+Checkout works without this. This step writes the paid order into Supabase.
+
+1. In the Square app, open **Webhooks → Add subscription**.
+2. Notification URL: `https://your-domain.com/api/webhooks/square`
+   It must match `SQUARE_WEBHOOK_URL` character for character.
+3. Subscribe to **payment.updated**.
+4. Copy the signature key into `SQUARE_WEBHOOK_SIGNATURE_KEY` in Vercel.
+5. Redeploy.
+
+Square’s order id is saved in the `orders` table, in the column named `stripe_checkout_session_id`. That column is just the receipt id. You do not need a Stripe account.
 
 ## Local setup
 
@@ -22,39 +69,11 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-The site runs without keys: waitlist uses an in-memory demo store, checkout returns a clear "Stripe isn't wired" message. Wire the env vars below for production behavior.
-
-## Environment variables
-
-Copy `.env.example` → `.env.local`.
-
-| Variable | Where it lives | Notes |
-|---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | Vercel + local | `http://localhost:3000` locally; your production URL on Vercel |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project settings | |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase API keys | Publishable / anon key. Safe for the browser. |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase API keys | **Server only.** Never prefix with `NEXT_PUBLIC_`. Used by waitlist + Stripe webhook. |
-| `STRIPE_SECRET_KEY` | Stripe Developers → API keys | Start with `sk_test_…`. Swap to `sk_live_…` at launch. |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe | `pk_test_…` then `pk_live_…` |
-| `STRIPE_PRICE_ID` | Stripe Product catalog | One-time price for The Rack |
-| `STRIPE_WEBHOOK_SECRET` | Stripe webhooks | `whsec_…` from the `checkout.session.completed` endpoint |
-
-### Going live with Stripe
-
-1. Keep test keys in `.env.local` until a real charge is intended.
-2. In the Stripe Dashboard, create the same Product/Price in live mode (or run the seed script against live keys).
-3. Replace `sk_test_` / `pk_test_` / test `price_` / test `whsec_` with live values in Vercel.
-4. Point the webhook at `https://YOUR_DOMAIN/api/webhooks/stripe`.
+Without Square keys, Buy Now says Square isn’t wired yet. The rest of the site still loads.
 
 ## Supabase
 
-Schema lives in `supabase/migrations`. Tables: `products`, `orders`, `waitlist`. RLS is on for all three.
-
-- Public role: `SELECT` on `products` only.
-- `waitlist` inserts go through `/api/waitlist` (service role + rate limit + email validation).
-- `orders` writes go through `/api/webhooks/stripe` only.
-
-### Apply the migration
+Schema lives in `supabase/migrations`. Tables: `products`, `orders`, `waitlist`.
 
 ```bash
 npx supabase login
@@ -64,67 +83,12 @@ npx supabase db push
 
 Or paste `supabase/migrations/20260923020219_init_schema.sql` into the Supabase SQL editor.
 
-Seed the product row after push (update the Stripe price id):
+## Deploy
 
-```sql
-insert into products (name, slug, price_cents, stripe_price_id, description, specs, active)
-values (
-  'The Rack',
-  'the-rack',
-  18900,
-  'price_YOUR_TEST_PRICE',
-  'Folding glass-filled nylon pool rack.',
-  '{"material":"PAL","fold":"flat","weight":"238g"}'::jsonb,
-  true
-);
-```
-
-## Stripe
-
-Create a one-time Product + Price ($189) in the Dashboard, or:
-
-```bash
-node --env-file=.env.local scripts/seed-stripe.mjs
-```
-
-Paste the printed `STRIPE_PRICE_ID` into `.env.local`.
-
-Local webhook forwarding:
-
-```bash
-stripe listen --forward-to localhost:3000/api/webhooks/stripe
-```
-
-Use the `whsec_…` the CLI prints as `STRIPE_WEBHOOK_SECRET`.
-
-## 3D + performance
-
-- Hero visual is a config switch in `src/lib/hero-visual.ts`: `procedural` (current 3D caret — two rails, open at the bottom) or `spin` (360° photo sequence). Drop frames in `/public/spin` and flip the mode — no section rebuild.
-- Hero and exploded views lazy-load with `next/dynamic` (`ssr: false`).
-- Canvas `dpr` is capped at `[1, 2]`. Two or three lights. Primitive geometry only.
-- `prefers-reduced-motion`, low core/memory devices, save-data, missing WebGL, or a first-second FPS probe under ~28 all fall back to the SVG rack.
-- A React error boundary swallows WebGL context failures.
-- Mobile: auto-rotate only, no drag (avoids scroll hijack).
-- Fallback SVG gets a light perspective tilt on scroll.
-
-Force the fallback in DevTools: CPU 4× slowdown, or `prefers-reduced-motion: reduce` in the Rendering panel.
-
-## Shareable spec cards
-
-`/og` and `/og?stat=fold|nylon|weight|bevel` return a 1200×630 branded card via `next/og`. Default Open Graph / Twitter images point here.
-
-## Hidden shop talk
-
-Click the header mark seven times, or type `rack`. Optional. Never in the way.
-
-## Deploy to Vercel
-
-1. Push the repo and import the project in Vercel.
-2. Add every env var from `.env.example` (production values).
-3. Set `NEXT_PUBLIC_SITE_URL` to the production URL.
-4. Deploy.
-5. In Stripe, add the live webhook URL: `https://YOUR_DOMAIN/api/webhooks/stripe` → event `checkout.session.completed`.
-6. Confirm a test-mode purchase against the preview URL before flipping to live keys.
+1. Push the repo and import it in Vercel.
+2. Add the variables in the table above.
+3. Redeploy.
+4. Buy one rack in sandbox and confirm Square sends you back to `/order/success`.
 
 ## Scripts
 

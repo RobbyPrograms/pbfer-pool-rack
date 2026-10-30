@@ -2,6 +2,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { Hero } from "@/components/hero/Hero";
 import { Problem } from "@/components/problem/Problem";
+import { Features } from "@/components/features/Features";
 import { Difference } from "@/components/product/Difference";
 import { FoldMoment } from "@/components/fold/FoldMoment";
 import { ExplodedSection } from "@/components/exploded/ExplodedSection";
@@ -17,6 +18,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <Problem />
+        <Features />
         <Difference />
         <FoldMoment />
         <ExplodedSection />

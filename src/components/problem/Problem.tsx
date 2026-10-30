@@ -1,277 +1,176 @@
-const COLS = ["House triangle", "Other folders", "The Rack"] as const;
-const COLS_SHORT = ["House", "Others", "The Rack"] as const;
+import { TrueRack } from "@/components/brand/Marks";
 
 type Mark = "full" | "half" | "none";
 
+const COLS = [
+  {
+    label: "Traditional triangles",
+    src: "/why/traditional-triangle.svg",
+    alt: "Traditional triangle",
+  },
+  {
+    label: "Competing folding racks",
+    src: "/why/competing-racks.svg",
+    alt: "Competing folding rack",
+  },
+] as const;
+
 const ROWS: {
   label: string;
-  hint: string;
-  icon: "apex" | "angle" | "fold" | "lift";
+  src: string;
+  wide?: boolean;
   marks: [Mark, Mark, Mark];
 }[] = [
   {
-    label: "The 1-ball stays put",
-    hint: "Apex actually captures it",
-    icon: "apex",
+    label: "Apex ball capture",
+    src: "/why/apex-ball-capture.svg",
     marks: ["half", "none", "full"],
   },
   {
-    label: "Opens to 60° and stays there",
-    hint: "Not a suggestion. A detent.",
-    icon: "angle",
+    label: "Precise 60° opening",
+    src: "/why/precise-60.svg",
     marks: ["half", "none", "full"],
   },
   {
-    label: "Folds flat",
-    hint: "Sleeve, drawer, bag pocket",
-    icon: "fold",
+    label: "Collapsible design",
+    src: "/why/collapsible.svg",
+    wide: true,
     marks: ["none", "full", "full"],
   },
   {
-    label: "Comes off without lifting the pack",
-    hint: "No third rail to drag the balls",
-    icon: "lift",
+    label: "Lift-free removal",
+    src: "/why/lift-free.svg",
     marks: ["none", "half", "full"],
   },
 ];
 
-const KINDS = ["triangle", "loose", "caret"] as const;
+const SCORE_LABEL: Record<Mark, string> = {
+  full: "Yes",
+  half: "Partial",
+  none: "No",
+};
 
 export function Problem() {
   return (
-    <section id="problem" className="relative border-t border-ink-line bg-ink">
-      <div className="mx-auto max-w-site px-5 py-20 md:px-8 md:py-24 lg:py-28">
-        <p className="kicker">Versus</p>
-        <h2 className="display mt-4 max-w-3xl text-4xl sm:text-6xl">
-          Same job.
-          <br />
-          Fewer excuses.
-        </h2>
-        <p className="mt-5 max-w-md text-paper-mute">
-          A house triangle, a folding rack from Amazon, and this.
-          Four things that actually change the pack.
-        </p>
+    <section id="why" className="relative border-t border-ink-line bg-ink">
+      <div className="mx-auto max-w-site px-4 py-16 sm:px-6 md:px-8 md:py-24">
+        <div className="grid grid-cols-[minmax(0,1.05fr)_repeat(3,minmax(0,0.9fr))]">
+            <div className="flex items-start border-b border-white/10 px-1 py-3 md:px-6 md:py-8">
+              <div className="min-w-0">
+                <h2 className="font-display text-[1.15rem] font-black leading-none tracking-tight text-paper sm:text-4xl md:text-5xl">
+                  Features
+                </h2>
+                <span className="mt-1.5 block h-[3px] w-8 bg-ember sm:mt-3 sm:h-1 sm:w-14" />
+              </div>
+            </div>
 
-        <div className="mt-12 md:hidden">
-          <MobileCompare />
-        </div>
-        <div className="mt-14 hidden md:block">
-          <DesktopCompare />
+            {COLS.map((col) => (
+              <div
+                key={col.src}
+                className="flex flex-col items-center border-b border-l border-white/10 px-0.5 py-3 text-center md:px-4 md:py-8"
+              >
+                <p className="font-display text-[0.5rem] uppercase leading-tight tracking-[0.04em] text-paper sm:text-[0.68rem] sm:tracking-[0.14em] md:text-xs">
+                  {col.label}
+                </p>
+                <img
+                  src={col.src}
+                  alt={col.alt}
+                  className="mt-2 h-10 w-full object-contain sm:h-16 md:mt-6 md:h-28"
+                />
+              </div>
+            ))}
+
+            <div className="rounded-t-xl border border-b-0 border-ember px-0.5 pt-1 md:rounded-t-[1.35rem] md:border-2 md:px-3 md:pt-2">
+              <div className="flex h-full flex-col items-center border-b border-white/10 px-0.5 py-3 text-center md:px-2 md:py-6">
+                <TrueRack className="font-display text-[0.68rem] font-bold leading-none sm:text-xl md:text-2xl" />
+                <img
+                  src="/why/true-rack.svg"
+                  alt="TrueRack"
+                  className="mt-2 h-10 w-full object-contain sm:h-16 md:mt-6 md:h-28"
+                />
+              </div>
+            </div>
+
+            {ROWS.map((row, index) => (
+              <FeatureRow key={row.label} row={row} last={index === ROWS.length - 1} />
+            ))}
         </div>
       </div>
     </section>
   );
 }
 
-function MobileCompare() {
-  return (
-    <div className="border-t border-ink-line">
-      <div className="grid grid-cols-3">
-        {COLS_SHORT.map((col, i) => (
-          <div
-            key={col}
-            className={`border-b border-ink-line px-1.5 py-4 text-center ${
-              i === 2 ? "bg-ink-raised" : ""
-            }`}
-          >
-            <p
-              className={`font-display text-[0.58rem] uppercase tracking-[0.12em] ${
-                i === 2 ? "text-ember" : "text-paper-mute"
-              }`}
-            >
-              {col}
-            </p>
-            <div className="mx-auto mt-3 flex h-14 items-center justify-center">
-              <RackGlyph kind={KINDS[i]} compact />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {ROWS.map((row) => (
-        <div key={row.label} className="border-b border-ink-line py-5">
-          <p className="font-display text-[0.95rem] leading-snug">{row.label}</p>
-          <p className="mt-1 text-xs text-paper-mute">{row.hint}</p>
-          <div className="mt-4 grid grid-cols-3">
-            {row.marks.map((mark, i) => (
-              <div
-                key={`${row.label}-${i}`}
-                className={`flex justify-center py-2 ${
-                  i === 2 ? "bg-ink-raised" : ""
-                }`}
-              >
-                <Score mark={mark} hot={i === 2 && mark === "full"} />
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function DesktopCompare() {
-  return (
-    <div className="border-t border-ink-line">
-      <div className="grid grid-cols-[minmax(11rem,1.4fr)_repeat(3,minmax(7.5rem,1fr))]">
-        <div className="border-b border-ink-line py-5 pr-4" />
-        {COLS.map((col, i) => (
-          <div
-            key={col}
-            className={`border-b border-ink-line px-3 py-5 text-center ${
-              i === 2 ? "border-l border-ember/50 bg-ink-raised" : ""
-            }`}
-          >
-            <p
-              className={`font-display text-[0.7rem] uppercase tracking-[0.16em] ${
-                i === 2 ? "text-ember" : "text-paper-mute"
-              }`}
-            >
-              {col}
-            </p>
-            <div className="mx-auto mt-6 flex h-[88px] items-center justify-center">
-              <RackGlyph kind={KINDS[i]} />
-            </div>
-          </div>
-        ))}
-
-        {ROWS.map((row) => (
-          <DesktopRow key={row.label} row={row} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function DesktopRow({ row }: { row: (typeof ROWS)[number] }) {
+function FeatureRow({
+  row,
+  last,
+}: {
+  row: (typeof ROWS)[number];
+  last: boolean;
+}) {
   return (
     <>
-      <div className="flex items-center gap-4 border-b border-ink-line py-6 pr-4">
-        <FeatureGlyph kind={row.icon} />
-        <div>
-          <p className="font-display text-[0.95rem] leading-snug text-paper">
-            {row.label}
-          </p>
-          <p className="mt-1 text-xs text-paper-mute">{row.hint}</p>
-        </div>
+      <div className="flex min-w-0 flex-col items-start justify-center gap-1.5 border-b border-white/10 px-1 py-3 md:gap-5 md:px-6 md:py-9">
+        <p className="font-display text-[0.5rem] uppercase leading-tight tracking-[0.04em] text-paper sm:text-xs sm:tracking-[0.12em] md:text-sm">
+          {row.label}
+        </p>
+        <img
+          src={row.src}
+          alt=""
+          className={
+            row.wide
+              ? "h-6 w-full max-w-[4.5rem] object-contain object-left sm:h-8 sm:max-w-[7rem] md:h-12 md:max-w-none md:w-48"
+              : "h-10 w-10 object-contain object-left sm:h-16 sm:w-16 md:h-32 md:w-32"
+          }
+        />
       </div>
-      {row.marks.map((mark, i) => (
-        <div
-          key={`${row.label}-${i}`}
-          className={`flex items-center justify-center border-b border-ink-line px-3 py-6 ${
-            i === 2 ? "border-l border-ember/50 bg-ink-raised" : ""
-          }`}
-        >
-          <Score mark={mark} hot={i === 2 && mark === "full"} />
-        </div>
-      ))}
+      {row.marks.map((mark, i) =>
+        i === 2 ? (
+          <div
+            key={`${row.label}-${i}`}
+            className={`border-x border-ember px-0.5 md:border-x-2 md:px-3 ${
+              last ? "rounded-b-xl border-b pb-1 md:rounded-b-[1.35rem] md:border-b-2 md:pb-2" : ""
+            }`}
+          >
+            <div
+              className={`flex h-full items-center justify-center py-3 md:py-7 ${
+                last ? "" : "border-b border-white/10"
+              }`}
+            >
+              <Score mark={mark} />
+            </div>
+          </div>
+        ) : (
+          <div
+            key={`${row.label}-${i}`}
+            className="flex items-center justify-center border-b border-l border-white/10 px-0.5 py-3 md:px-3 md:py-7"
+          >
+            <Score mark={mark} />
+          </div>
+        ),
+      )}
     </>
   );
 }
 
-function Score({ mark, hot }: { mark: Mark; hot?: boolean }) {
+function Score({ mark }: { mark: Mark }) {
   return (
-    <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden>
-      {mark === "none" ? (
-        <circle
-          cx="12"
-          cy="12"
-          r="7"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.25"
-          className="text-ink-line"
-        />
+    <div className="relative flex h-8 w-8 items-center justify-center sm:h-14 sm:w-14 md:h-20 md:w-20">
+      <span className="sr-only">{SCORE_LABEL[mark]}</span>
+      {mark !== "none" ? (
+        <span className="absolute bottom-0 h-1.5 w-5 rounded-full bg-[#AD3211]/75 blur-sm sm:h-2.5 sm:w-10 sm:blur-md md:bottom-1 md:h-3.5 md:w-14" />
       ) : null}
-      {mark === "half" ? (
-        <>
-          <circle
-            cx="12"
-            cy="12"
-            r="7"
-            fill="none"
-            stroke="#AD3211"
-            strokeWidth="1.25"
-            opacity="0.45"
-          />
-          <path d="M12 5a7 7 0 0 0 0 14Z" fill="#AD3211" />
-        </>
-      ) : null}
-      {mark === "full" ? (
-        <circle
-          cx="12"
-          cy="12"
-          r="7"
-          fill="#AD3211"
-          className={hot ? "drop-shadow-[0_0_10px_rgba(173,50,17,0.45)]" : ""}
-        />
-      ) : null}
-    </svg>
-  );
-}
-
-const RACK_ART = {
-  triangle: { src: "/compare/house-triangle.png", alt: "House triangle" },
-  loose: { src: "/compare/other-folders.png", alt: "Other folding racks" },
-  caret: { src: "/compare/the-rack.png", alt: "The Rack" },
-} as const;
-
-function RackGlyph({
-  kind,
-  compact = false,
-}: {
-  kind: "triangle" | "loose" | "caret";
-  compact?: boolean;
-}) {
-  const art = RACK_ART[kind];
-  return (
-    <img
-      src={art.src}
-      alt={art.alt}
-      className={
-        compact
-          ? "h-12 w-auto max-w-[72px] object-contain"
-          : "h-[76px] w-auto max-w-[110px] object-contain"
-      }
-    />
-  );
-}
-
-function FeatureGlyph({ kind }: { kind: "apex" | "angle" | "fold" | "lift" }) {
-  return (
-    <svg
-      viewBox="0 0 40 40"
-      className="h-10 w-10 shrink-0"
-      aria-hidden
-      fill="none"
-      stroke="#A39C90"
-      strokeWidth="1.2"
-    >
-      {kind === "apex" ? (
-        <>
-          <path d="M8 32 L20 8 L32 32" strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx="20" cy="18" r="3.2" fill="#AD3211" stroke="none" />
-        </>
-      ) : null}
-      {kind === "angle" ? (
-        <>
-          <path d="M8 30 L20 10 L32 30" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M14 20 A10 10 0 0 1 26 20" />
-        </>
-      ) : null}
-      {kind === "fold" ? (
-        <>
-          <rect x="10" y="17" width="20" height="4.5" rx="1" />
-          <circle cx="10" cy="19.2" r="1.8" />
-        </>
-      ) : null}
-      {kind === "lift" ? (
-        <>
-          <path d="M8 28 L20 10 L32 28" strokeLinecap="round" />
-          <path d="M12 32 H28" />
-          <path d="M14 8 V3 M26 8 V3" strokeLinecap="round" />
-        </>
-      ) : null}
-    </svg>
+      <svg viewBox="0 0 64 64" className="relative h-6 w-6 sm:h-12 sm:w-12 md:h-16 md:w-16" aria-hidden>
+        {mark === "none" ? (
+          <circle cx="32" cy="28" r="15" fill="none" stroke="#AD3211" strokeWidth="2.25" />
+        ) : null}
+        {mark === "half" ? (
+          <>
+            <circle cx="32" cy="28" r="15" fill="none" stroke="#AD3211" strokeWidth="2.25" />
+            <path d="M32 13 A15 15 0 0 0 32 43 Z" fill="#AD3211" />
+          </>
+        ) : null}
+        {mark === "full" ? <circle cx="32" cy="28" r="15" fill="#AD3211" /> : null}
+      </svg>
+    </div>
   );
 }
