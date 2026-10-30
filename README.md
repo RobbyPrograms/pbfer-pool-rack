@@ -27,7 +27,7 @@ Vercel keeps secrets for the live site. You paste them once. The site reads them
 
 Same names go in `.env.local` on your computer if you want checkout while running `npm run dev`. Copy `.env.example` to `.env.local` and fill the blanks. `.env.local` stays on your machine.
 
-The amount Square charges is `priceCents` in `src/lib/brand.ts`. Right now that is `18900`, which is **$189.00**. The price written on the page is `priceLabel` (`$59.99`). Change both to the same number before you take a real payment.
+The amount Square charges is `priceCents` in `src/lib/brand.ts` (`5999`, which is $59.99). The price on the page is `priceLabel`. Keep those two the same.
 
 ## Where to get the Square values
 
