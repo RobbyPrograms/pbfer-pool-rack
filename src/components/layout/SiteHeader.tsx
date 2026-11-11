@@ -13,7 +13,6 @@ const TABS = [
   { href: "/#gallery", label: "Gallery" },
   { href: "/#about", label: "About" },
   { href: "/#support", label: "Support" },
-  { href: "/#shop", label: "Shop" },
 ] as const;
 
 export function SiteHeader() {
@@ -49,7 +48,7 @@ export function SiteHeader() {
               className={`shrink-0 whitespace-nowrap hover:text-paper ${
                 tab.href === "/#home"
                   ? "ml-8"
-                  : tab.href === "/#shop"
+                  : tab.href === "/#support"
                     ? "mr-8"
                     : ""
               }`}

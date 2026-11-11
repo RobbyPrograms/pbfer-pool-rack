@@ -2,8 +2,8 @@ export const BRAND = {
   name: "BuiltTrue",
   product: "The Rack",
   tagline: "Re-Engineered",
-  priceCents: 5999,
-  priceLabel: "$59.99",
+  priceCents: 4999,
+  priceLabel: "$49.99",
   waitlistCap: 100,
   accent: "#AD3211",
   ink: "#19191C",
@@ -16,18 +16,15 @@ export const BRAND = {
 } as const;
 
 export const SPECS = [
-  { label: "Frame", value: "Two rails. The table cushion is the third side." },
-  { label: "Material", value: "SLS-printed glass-filled nylon (PAL)" },
-  { label: "Finish", value: "As-printed, matte charcoal" },
-  { label: "Pin", value: "Single apex hinge, locks open" },
-  { label: "Folded", value: "Flat — two rails stacked, 280 × 28 × 14 mm" },
-  { label: "Open lock", value: "Positive detent at 60°" },
-  { label: "Weight", value: "168 g" },
-  { label: "Rail length (open)", value: "280 mm" },
-  { label: "Ball size", value: "2¼″ regulation" },
-  { label: "Rail seat", value: "15° printed chamfer" },
-  { label: "Compatibility", value: "7–9 ft tables, 15-ball rack" },
-  { label: "Warranty", value: "Replace it if the pin lets go" },
+  { label: "Frame", value: "Two folding arms with an integrated front-ball cradle" },
+  { label: "Material", value: "Carbon-fiber-reinforced plastic" },
+  { label: "Finish", value: "Matte" },
+  { label: "Pivot", value: "Stainless steel shoulder screw with brass heat-set insert" },
+  { label: "Opening stop", value: "Integrated stop slot controls the opening angle" },
+  { label: "Folded dimensions", value: "12.5 × 1.125 × 1.5 in (L × W × H)" },
+  { label: "Weight", value: "0.625 lbs" },
+  { label: "Ball size", value: "Standard 2¼-inch billiard balls" },
+  { label: "Compatibility", value: "8-ball, 9-ball, and 10-ball" },
 ] as const;
 
 export const STATS = [

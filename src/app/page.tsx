@@ -7,7 +7,8 @@ import { ExplodedSection } from "@/components/exploded/ExplodedSection";
 import { SocialProof } from "@/components/proof/SocialProof";
 import { SupportSection } from "@/components/support/SupportSection";
 import { BuySection } from "@/components/buy/BuySection";
-import { FounderNote } from "@/components/founder/FounderNote";
+import { AboutSection } from "@/components/about/AboutSection";
+import { GallerySection } from "@/components/gallery/GallerySection";
 
 export default function HomePage() {
   return (
@@ -19,12 +20,8 @@ export default function HomePage() {
         <Features />
         <ExplodedSection />
         <SocialProof />
-        <section
-          id="gallery"
-          aria-label="Gallery"
-          className="min-h-[50vh] scroll-mt-24 border-t border-ink-line"
-        />
-        <FounderNote />
+        <GallerySection />
+        <AboutSection />
         <SupportSection />
         <BuySection />
       </main>
