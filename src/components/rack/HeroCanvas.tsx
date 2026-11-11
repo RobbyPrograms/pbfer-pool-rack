@@ -8,5 +8,5 @@ type HeroCanvasProps = {
 };
 
 export default function HeroCanvas({ autoRotate }: HeroCanvasProps) {
-  return <ProductSpinCanvas interactive autoRotate={autoRotate} />;
+  return <ProductSpinCanvas interactive autoRotate={autoRotate} hero />;
 }

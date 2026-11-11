@@ -2,9 +2,13 @@
 
 import { Environment, Lightformer } from "@react-three/drei";
 
-export function Studio() {
+export function Studio({ environmentIntensity = 1.6 }: { environmentIntensity?: number }) {
   return (
-    <Environment resolution={256} frames={1} environmentIntensity={1.6}>
+    <Environment
+      resolution={256}
+      frames={1}
+      environmentIntensity={environmentIntensity}
+    >
       <Lightformer
         form="rect"
         intensity={8}

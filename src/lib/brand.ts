@@ -1,7 +1,7 @@
 export const BRAND = {
   name: "BuiltTrue",
   product: "The Rack",
-  tagline: "It finally racks tight.",
+  tagline: "Re-Engineered",
   priceCents: 5999,
   priceLabel: "$59.99",
   waitlistCap: 100,

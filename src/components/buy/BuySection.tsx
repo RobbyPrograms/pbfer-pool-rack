@@ -2,7 +2,6 @@
 
 import { FormEvent, useState } from "react";
 import { BRAND } from "@/lib/brand";
-import { Faq } from "./Faq";
 import { RackSvg } from "@/components/rack/RackSvg";
 
 export function BuySection() {
@@ -80,10 +79,6 @@ export function BuySection() {
             </p>
           )}
 
-          <div id="support" className="mt-12">
-            <p className="kicker mb-2">FAQ</p>
-            <Faq />
-          </div>
         </div>
       </div>
     </section>

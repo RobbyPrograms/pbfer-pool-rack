@@ -50,9 +50,8 @@ export function Features() {
           <div className="max-w-xl">
             <p className="kicker">Features</p>
             <h2 className="display mt-4 text-4xl leading-[0.95] sm:text-5xl md:text-6xl">
-              A closer look at how
-              <br />
-              <TrueRack /> is engineered.
+              <span className="text-ember">BUILT</span> TO{" "}
+              <span className="text-ember">PERFORM</span>
             </h2>
           </div>
           <p className="max-w-md text-base leading-relaxed text-paper/80 lg:text-right">
@@ -69,20 +68,27 @@ export function Features() {
               key={card.titleRest}
               className="flex flex-col rounded-2xl border border-white/10 bg-[#141416] p-3 sm:p-4"
             >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-black">
+              <div className="relative aspect-[4/3] min-h-[210px] overflow-hidden rounded-xl bg-black">
                 {card.model ? (
                   <ModelBoundary>
                     <PartCanvas url={card.model} />
-                    <p className="pointer-events-none absolute bottom-3 right-3 font-display text-[0.62rem] uppercase tracking-[0.16em] text-paper-mute">
-                      Drag to spin
-                    </p>
+                    {card.model !== "/models/stop-mechanism.glb" ? (
+                      <p className="pointer-events-none absolute bottom-3 right-3 font-display text-[0.62rem] uppercase tracking-[0.16em] text-paper-mute">
+                        Drag to spin
+                      </p>
+                    ) : null}
                   </ModelBoundary>
                 ) : (
-                  <div className="flex h-full items-end justify-end p-3">
-                    <p className="font-display text-[0.62rem] uppercase tracking-[0.16em] text-paper-mute">
-                      Print timelapse
-                    </p>
-                  </div>
+                  <video
+                    className="h-full w-full object-contain"
+                    src="/features/TrueRack_timelapse.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    controls
+                    aria-label="TrueRack carbon-fiber construction timelapse"
+                  />
                 )}
               </div>
 
