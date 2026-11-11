@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { TrueRack } from "@/components/brand/Marks";
 import { HeroStage } from "@/components/rack/HeroStage";
-import { BRAND } from "@/lib/brand";
 
 export function Hero() {
   return (
@@ -21,8 +20,8 @@ export function Hero() {
               transition={{ duration: 0.6 }}
               className="flex items-baseline gap-2"
             >
-              <span className="kicker">Introducing</span>
-              <TrueRack className="font-display text-[0.95rem] font-semibold tracking-tight" />
+              <span className="kicker text-paper">Introducing</span>
+              <TrueRack className="whitespace-nowrap font-display text-[clamp(1.7rem,6.8vw,5.2rem)] font-semibold tracking-tight" />
             </motion.p>
             <motion.h1
               initial={{ opacity: 0, y: 18 }}
@@ -30,8 +29,12 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.05 }}
               className="display mt-3 text-[2.05rem] font-bold leading-[0.92] sm:mt-5 sm:text-6xl lg:text-[4.35rem] xl:text-[4.85rem]"
             >
-              <span className="block">THE POOL RACK</span>
-              <span className="block text-ember">RE-ENGINEERED</span>
+              <span className="block whitespace-nowrap text-[clamp(1.5rem,6.3vw,4.85rem)]">
+                THE POOL RACK
+              </span>
+              <span className="block whitespace-nowrap text-[clamp(1.5rem,5.4vw,3.75rem)] text-ember">
+                RE-ENGINEERED
+              </span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
@@ -48,14 +51,21 @@ export function Hero() {
               transition={{ duration: 0.55, delay: 0.24 }}
               className="mt-4 flex flex-col items-stretch gap-2.5 sm:mt-8 sm:flex-row sm:items-center sm:gap-4"
             >
-              <Link href="/#shop" className="ember-btn">
-                Get the Rack — {BRAND.priceLabel}
+              <Link
+                href="/#shop"
+                className="ember-btn !h-[53px] !w-[191px] !gap-2 !px-2 !py-0 font-bold normal-case"
+              >
+                <span className="text-[1.4rem] text-paper">Shop</span>
+                <span className="whitespace-nowrap text-2xl leading-none">
+                  <span className="text-ink">True</span>
+                  <span className="text-paper">Rack</span>
+                </span>
               </Link>
 
             </motion.div>
           </div>
 
-          <div className="relative mt-2 min-h-0 w-full flex-1 touch-none md:mx-0 md:mt-0 md:h-[68vh] md:max-h-[640px] md:min-h-[380px] md:flex-none">
+          <div className="relative mt-2 min-h-0 w-full flex-1 touch-none md:mx-0 md:mt-0 md:h-[68vh] md:max-h-[640px] md:min-h-[380px] md:flex-none lg:-mx-8 lg:w-[calc(100%+4rem)]">
             <div className="absolute inset-0 md:relative md:inset-auto md:h-full">
               <HeroStage />
             </div>
@@ -70,6 +80,19 @@ export function Hero() {
             Drag to spin.
           </p>
         </div>
+      </div>
+      <div className="aspect-video w-full overflow-hidden bg-black">
+        <video
+          className="h-full w-full object-contain"
+          src="/Chases%20production%20videos-photos/Built%20True%20Multi%20Take%20Video%20-%20Amazon.mp4"
+          autoPlay
+          controls
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          aria-label="Built True multi-take production video"
+        />
       </div>
     </section>
   );

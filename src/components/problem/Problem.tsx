@@ -60,7 +60,7 @@ export function Problem() {
                 <h2 className="font-display text-[1.15rem] font-black leading-none tracking-tight text-paper sm:text-4xl md:text-5xl">
                   Features
                 </h2>
-                <span className="mt-1.5 block h-[3px] w-8 bg-ember sm:mt-3 sm:h-1 sm:w-14" />
+                <span className="mt-1.5 block h-[3px] w-full bg-gradient-to-r from-ember to-ink sm:mt-3 sm:h-1" />
               </div>
             </div>
 

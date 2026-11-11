@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { TrueRack } from "@/components/brand/Marks";
 import { useEasterEgg } from "@/components/easter-egg/ShopTalk";
 
 const TABS = [
@@ -42,17 +41,25 @@ export function SiteHeader() {
             priority
           />
         </Link>
-        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-x-3 text-[0.62rem] uppercase tracking-[0.12em] text-paper-mute lg:flex xl:gap-x-5 xl:text-[0.68rem] xl:tracking-[0.14em]">
+        <nav className="hidden min-w-0 flex-1 items-center justify-between text-xs font-bold uppercase tracking-[0.12em] text-paper lg:flex xl:text-sm xl:tracking-[0.14em]">
           {TABS.map((tab) => (
             <Link
               key={tab.href}
               href={tab.href}
-              className="shrink-0 whitespace-nowrap hover:text-paper"
+              className={`shrink-0 whitespace-nowrap hover:text-paper ${
+                tab.href === "/#home"
+                  ? "ml-8"
+                  : tab.href === "/#shop"
+                    ? "mr-8"
+                    : ""
+              }`}
             >
               {tab.href === "/#why" ? (
-                <>
-                  Why <TrueRack />
-                </>
+                <span>
+                  WHY <span className="text-paper">TRUE</span>
+                  <span className="font-bold text-ember">RACK</span>
+                  <span className="text-ember">?</span>
+                </span>
               ) : (
                 tab.label
               )}
@@ -71,15 +78,19 @@ export function SiteHeader() {
           <Link
             href="/#shop"
             onClick={() => setOpen(false)}
-            className="ember-btn shrink-0 whitespace-nowrap !px-3 !py-2 text-[0.65rem] sm:!px-4 sm:!py-2.5 sm:text-[0.78rem]"
+            className="ember-btn shrink-0 whitespace-nowrap !gap-1 !px-3 !py-2 text-[0.65rem] font-bold normal-case sm:!px-4 sm:!py-2.5 sm:text-[0.78rem]"
           >
-            Get the Rack
+            <span className="text-paper">Shop</span>
+            <span className="whitespace-nowrap leading-none">
+              <span className="text-ink">True</span>
+              <span className="text-paper">Rack</span>
+            </span>
           </Link>
         </div>
       </div>
       {open ? (
         <nav className="border-t border-ink-line/80 px-5 py-4 lg:hidden">
-          <div className="mx-auto flex max-w-site flex-col gap-4 text-[0.72rem] uppercase tracking-[0.16em] text-paper-mute">
+          <div className="mx-auto flex max-w-site flex-col gap-4 text-sm font-bold uppercase tracking-[0.16em] text-paper">
             {TABS.map((tab) => (
               <Link
                 key={tab.href}
@@ -88,9 +99,11 @@ export function SiteHeader() {
                 onClick={() => setOpen(false)}
               >
                 {tab.href === "/#why" ? (
-                  <>
-                    Why <TrueRack />
-                  </>
+                  <span>
+                    WHY <span className="text-paper">TRUE</span>
+                    <span className="font-bold text-ember">RACK</span>
+                    <span className="text-ember">?</span>
+                  </span>
                 ) : (
                   tab.label
                 )}
