@@ -136,7 +136,7 @@ function Model({
       const fit = framingRadius / Math.sin(fov / 2);
       const framing =
         url === "/models/shoulder-screw.glb"
-          ? 0.95
+          ? 1.38
           : url === "/models/stop-mechanism.glb"
             ? 1.25
             : 1.6;
@@ -189,7 +189,7 @@ function Model({
 
     frameWhenReady();
     return () => cancelAnimationFrame(frameId);
-  }, [camera, controls, scene, size, url]);
+  }, [camera, controls, scene, size.width, size.height, url]);
 
   return (
     <group ref={group}>
@@ -345,6 +345,7 @@ export default function PartCanvas({ url }: { url: string }) {
   return (
     <Canvas
       dpr={[1, 1.5]}
+      resize={{ scroll: false, offsetSize: true }}
       camera={{ position: [0.4, 0.6, 2.4], fov: 35 }}
       gl={{ antialias: true, alpha: true, powerPreference: "default" }}
       onCreated={({ gl }) => {
@@ -352,8 +353,12 @@ export default function PartCanvas({ url }: { url: string }) {
         gl.toneMappingExposure = 1;
       }}
       style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
         background: "transparent",
-        touchAction: "none",
+        touchAction: "pan-y",
         cursor: isPrecisionStop ? "default" : "grab",
       }}
     >

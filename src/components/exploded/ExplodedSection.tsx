@@ -42,7 +42,7 @@ export function ExplodedSection() {
             </p>
           </div>
 
-          <div className="relative order-first mx-auto h-[240px] w-full min-w-0 max-w-[560px] sm:h-[300px] md:order-none md:h-[520px] md:max-w-none">
+          <div className="relative order-first mx-auto h-[240px] min-h-[240px] w-full min-w-0 max-w-[560px] overflow-hidden sm:h-[300px] sm:min-h-[300px] md:order-none md:h-[420px] md:min-h-[420px] md:max-w-none lg:h-[520px] lg:min-h-[520px]">
             {use3d ? (
               <WebGLErrorBoundary
                 fallback={<RackFallback className="h-full w-full" />}

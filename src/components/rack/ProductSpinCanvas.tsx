@@ -23,9 +23,18 @@ function FramedRack({
   controls: ControlsRef;
 }) {
   const group = useRef<THREE.Group>(null);
+  const framed = useRef({ width: 0, height: 0 });
   const { camera, size } = useThree();
 
   useLayoutEffect(() => {
+    if (
+      framed.current.width > 0 &&
+      Math.abs(size.width - framed.current.width) < 8 &&
+      Math.abs(size.height - framed.current.height) < 8
+    ) {
+      return;
+    }
+
     const persp = camera as THREE.PerspectiveCamera;
     let frameId = 0;
 
@@ -35,9 +44,13 @@ function FramedRack({
         frameId = requestAnimationFrame(frame);
         return;
       }
+      const spin = root.rotation.y;
+      root.rotation.y = 0;
+      root.updateMatrixWorld(true);
       const box = new THREE.Box3().setFromObject(root);
       const sphere = new THREE.Sphere();
       box.getBoundingSphere(sphere);
+      root.rotation.y = spin;
       if (sphere.radius <= 0.001) {
         frameId = requestAnimationFrame(frame);
         return;
@@ -47,6 +60,7 @@ function FramedRack({
       const aspect = Math.max(0.5, size.width / Math.max(1, size.height));
       const fit = sphere.radius / Math.sin(fov / 2);
       const dist = Math.max(fit, fit / aspect) * (hero ? 1.04 : 1.45);
+      framed.current = { width: size.width, height: size.height };
 
       persp.position.set(
         sphere.center.x + dist * 0.16,
@@ -68,7 +82,7 @@ function FramedRack({
 
     frame();
     return () => cancelAnimationFrame(frameId);
-  }, [camera, hero, size]);
+  }, [camera, controls, hero, size.width, size.height]);
 
   useFrame((_, delta) => {
     if (interactive || !autoRotate || !group.current) return;
@@ -213,11 +227,16 @@ export default function ProductSpinCanvas({
   return (
     <Canvas
       dpr={[1, 1.5]}
+      resize={{ scroll: false, offsetSize: true }}
       camera={{ position: [0.35, 2.15, 4.85], fov: 38 }}
       gl={{ antialias: true, alpha: true, powerPreference: "default" }}
       style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
         background: "transparent",
-        touchAction: interactive ? "none" : "auto",
+        touchAction: interactive ? "pan-y" : "auto",
         cursor: interactive ? "grab" : "default",
         pointerEvents: interactive ? "auto" : "none",
       }}

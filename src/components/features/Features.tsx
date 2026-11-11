@@ -68,7 +68,7 @@ export function Features() {
               key={card.titleRest}
               className="flex flex-col rounded-2xl border border-white/10 bg-[#141416] p-3 sm:p-4"
             >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-black">
+              <div className="relative aspect-[4/3] min-h-[210px] overflow-hidden rounded-xl bg-black">
                 {card.model ? (
                   <ModelBoundary>
                     <PartCanvas url={card.model} />

@@ -21,8 +21,8 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-ink-line/80 bg-ink/70 backdrop-blur-md">
-      <div className="mx-auto flex max-w-site items-center gap-4 px-5 py-3 md:px-8">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-ink-line/80 bg-ink pt-[env(safe-area-inset-top,0px)]">
+      <div className="mx-auto flex max-w-site items-center gap-3 px-4 py-3 sm:gap-4 sm:px-5 md:px-8">
         <Link
           href="/#home"
           onClick={() => {

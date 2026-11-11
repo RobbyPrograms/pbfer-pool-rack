@@ -17,11 +17,13 @@
 html {
   scroll-behavior: smooth;
   overflow-x: clip;
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: calc(4.75rem + env(safe-area-inset-top, 0px));
 }
 
 body {
   overflow-x: clip;
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
 }
 
 @media (prefers-reduced-motion: reduce) {
