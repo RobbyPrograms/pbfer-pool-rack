@@ -59,7 +59,7 @@ function FramedRack({
       const fov = (persp.fov * Math.PI) / 180;
       const aspect = Math.max(0.5, size.width / Math.max(1, size.height));
       const fit = sphere.radius / Math.sin(fov / 2);
-      const dist = Math.max(fit, fit / aspect) * (hero ? 1.04 : 1.45);
+      const dist = Math.max(fit, fit / aspect) * (hero ? 1.04 : 0.8);
       framed.current = { width: size.width, height: size.height };
 
       persp.position.set(

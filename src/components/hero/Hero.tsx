@@ -77,7 +77,7 @@ export function Hero() {
             Folds flat · locks at 60°
           </p>
           <p className="font-display text-[0.62rem] uppercase tracking-[0.22em] text-paper-mute sm:text-[0.68rem]">
-            Drag to spin.
+            Drag to spin. Scroll to zoom.
           </p>
         </div>
       </div>
@@ -86,7 +86,8 @@ export function Hero() {
           className="h-full w-full object-contain"
           src="/Chases%20production%20videos-photos/Built%20True%20Multi%20Take%20Video%20-%20Amazon.mp4"
           autoPlay
-          controls
+          disablePictureInPicture
+          disableRemotePlayback
           loop
           muted
           playsInline

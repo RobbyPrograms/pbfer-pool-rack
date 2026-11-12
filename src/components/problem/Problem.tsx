@@ -55,7 +55,7 @@ export function Problem() {
     <section id="why" className="relative border-t border-ink-line bg-ink">
       <div className="mx-auto max-w-site px-4 py-16 sm:px-6 md:px-8 md:py-24">
         <div className="grid grid-cols-[minmax(0,1.05fr)_repeat(3,minmax(0,0.9fr))]">
-            <div className="flex items-start border-b border-white/10 px-1 py-3 md:px-6 md:py-8">
+            <div className="flex justify-center border-b border-white/10 px-1 py-3 text-center md:px-6 md:py-8">
               <div className="min-w-0">
                 <h2 className="font-display text-[1.15rem] font-black leading-none tracking-tight text-paper sm:text-4xl md:text-5xl">
                   Features
@@ -109,7 +109,7 @@ function FeatureRow({
 }) {
   return (
     <>
-      <div className="flex min-w-0 flex-col items-start justify-center gap-1.5 border-b border-white/10 px-1 py-3 md:gap-5 md:px-6 md:py-9">
+      <div className="flex min-w-0 flex-col items-center justify-center gap-1.5 border-b border-white/10 px-1 py-3 text-center md:gap-5 md:px-6 md:py-9">
         <p className="font-display text-[0.5rem] uppercase leading-tight tracking-[0.04em] text-paper sm:text-xs sm:tracking-[0.12em] md:text-sm">
           {row.label}
         </p>
@@ -118,8 +118,8 @@ function FeatureRow({
           alt=""
           className={
             row.wide
-              ? "h-6 w-full max-w-[4.5rem] object-contain object-left sm:h-8 sm:max-w-[7rem] md:h-12 md:max-w-none md:w-48"
-              : "h-10 w-10 object-contain object-left sm:h-16 sm:w-16 md:h-32 md:w-32"
+              ? "h-6 w-full max-w-[4.5rem] object-contain object-center sm:h-8 sm:max-w-[7rem] md:h-12 md:max-w-none md:w-48"
+              : "h-10 w-10 object-contain object-center sm:h-16 sm:w-16 md:h-32 md:w-32"
           }
         />
       </div>

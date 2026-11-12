@@ -72,11 +72,9 @@ export function Features() {
                 {card.model ? (
                   <ModelBoundary>
                     <PartCanvas url={card.model} />
-                    {card.model !== "/models/stop-mechanism.glb" ? (
-                      <p className="pointer-events-none absolute bottom-3 right-3 font-display text-[0.62rem] uppercase tracking-[0.16em] text-paper-mute">
-                        Drag to spin
-                      </p>
-                    ) : null}
+                    <p className="pointer-events-none absolute bottom-3 right-3 font-display text-[0.62rem] uppercase tracking-[0.16em] text-paper-mute">
+                      {card.model === "/models/stop-mechanism.glb" ? "Scroll to zoom." : "Drag to spin. Scroll to zoom."}
+                    </p>
                   </ModelBoundary>
                 ) : (
                   <video

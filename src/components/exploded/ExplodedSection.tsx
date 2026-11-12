@@ -35,14 +35,14 @@ export function ExplodedSection() {
             <h2 className="display mt-4 text-[2rem] leading-[0.95] sm:text-6xl md:text-7xl">
               Spec Sheet
             </h2>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-paper-mute sm:text-lg">
-              Same caret as the hero — two nylon rails sharing one apex pin.
-              They lock at 60°, then they fold. The cushion you already have
-              is the third side.
+            <p className="mt-6 max-w-md text-base leading-relaxed text-white sm:text-lg">
+              For players who care about every angle—including the ones in
+              their rack. Take a closer look at the dimensions, materials, and
+              hardware behind True<span className="text-ember">Rack</span>.
             </p>
           </div>
 
-          <div className="relative order-first mx-auto h-[240px] min-h-[240px] w-full min-w-0 max-w-[560px] overflow-hidden sm:h-[300px] sm:min-h-[300px] md:order-none md:h-[420px] md:min-h-[420px] md:max-w-none lg:h-[520px] lg:min-h-[520px]">
+          <div className="relative order-first mx-auto h-[240px] min-h-[240px] w-full min-w-0 max-w-[560px] overflow-hidden sm:h-[300px] sm:min-h-[300px] md:order-none md:h-[420px] md:min-h-[420px] md:max-w-none lg:-ml-16 lg:h-[520px] lg:min-h-[520px] lg:w-[calc(100%+4rem)]">
             {use3d ? (
               <WebGLErrorBoundary
                 fallback={<RackFallback className="h-full w-full" />}

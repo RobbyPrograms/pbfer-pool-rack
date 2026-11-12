@@ -1,0 +1,29 @@
+
+.dialog { width: min(36rem, calc(100vw - 2rem)); max-height: 90dvh; margin: auto; overflow-y: auto; border: 1px solid var(--ink-line); padding: 1.75rem; background: var(--ink); color: var(--paper); }
+.dialog::backdrop { background: rgb(0 0 0 / 80%); }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.top button { padding: .3rem; }
+.dialog h2 { font-size: 2.5rem; line-height: 1.1; }
+.summary { margin-top: 1rem; color: var(--paper-mute); }
+.dialog form { margin-top: 1.5rem; }
+.dialog legend { font-weight: 600; }
+.choices { display: flex; gap: 2rem; margin-block: 1rem; }
+.choices label { display: flex; gap: .6rem; align-items: center; font-size: 1.2rem; }
+.choices input { accent-color: var(--ember); }
+.fields { display: grid; gap: 1rem; margin-block: 1.5rem; }
+.fields label { display: flex; flex-direction: column; gap: .5rem; }
+.fields input, .fields select { width: 100%; min-width: 0; background: var(--ink-raised); color: var(--paper); border: 1px solid var(--ink-line); padding: .75rem; }
+.preview { border: 1px solid var(--ink-line); padding: 1rem; }
+.preview span { font-size: .8rem; color: var(--paper-mute); }
+.preview p { font-family: var(--font-industry); font-size: 2rem; overflow-wrap: anywhere; }
+.help { color: var(--paper-mute); font-size: .875rem; margin-block: .75rem 1.25rem; }
+.error { color: #ff9c80; margin-top: 1rem; }
+.dialog button:focus-visible, .dialog input:focus-visible, .dialog select:focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; }
+.dialog button:disabled { opacity: .6; cursor: wait; }
+.assignment { padding-bottom: 1rem; }
+.assignment label { display: flex; align-items: center; gap: .65rem; margin-top: .8rem; }
+.assignment input { accent-color: var(--ember); }
+.rackDesign { border: 1px solid var(--ink-line); padding: 1rem; margin-bottom: 1.25rem; }
+.rackDesign legend { padding-inline: .5rem; color: var(--paper); }
+.fileName { overflow-wrap: anywhere; font-size: .875rem; color: var(--paper); }
+.orderColors { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-top: .75rem; font-size: .875rem; color: var(--paper-mute); }
