@@ -1,27 +1,31 @@
 "use client";
 import { FormEvent, useRef, useState } from "react";
+import { SUPPORT_CONFIG, supportTranscript, type SupportMessage } from "@/lib/support-config";
+import { SupportChat } from "./SupportChat";
 import styles from "./SupportSection.module.css";
-const topics = [
-  { title: "Orders & Shipping", description: "Questions about your order, shipping, or delivery.", icon: "orders" },
-  { title: "Product Support", description: "Assembly, usage, maintenance, or product concerns.", icon: "product" },
-  { title: "Returns & Replacements", description: "Need help with a return or replacement? Start here.", icon: "returns" },
-  { title: "General Questions", description: "Questions about Built True or something not listed here.", icon: "questions" },
-];
-const questions = [
-  { question: "How do I use TrueRack?", answer: "Open the folding arms fully to the integrated stop, then position TrueRack around your billiard balls. Bring the balls together into a tight rack, then lift TrueRack clear before breaking. If you need help with your setup, choose Product Support above." },
-  { question: "Can I track my order?", answer: "Have a tracking link? Open it to check the carrier?s latest delivery updates. If you need help finding tracking information or checking your order, select Orders & Shipping and include your order number in your message." },
-  { question: "What if there?s a problem with my TrueRack?", answer: "Choose Product Support or Returns & Replacements and describe what happened. Include your order number, if available, so we can help you with the next steps." },
-];
+const topics = SUPPORT_CONFIG.categories;
+const questions = SUPPORT_CONFIG.faqs;
 export function SupportSection() {
   const [topic, setTopic] = useState("");
   const [status, setStatus] = useState("");
+  const [chatCategory, setChatCategory] = useState<(typeof topics)[number] | null>(null);
+  const [contactMessage, setContactMessage] = useState("");
   const contact = useRef<HTMLDivElement>(null);
   const nameInput = useRef<HTMLInputElement>(null);
   const email = process.env.NEXT_PUBLIC_SUPPORT_EMAIL;
-  function selectTopic(title: string) {
-    setTopic(title);
+  function contactPayton(messages: SupportMessage[]) {
+    if (!chatCategory) return;
+    setTopic(chatCategory.title);
+    setContactMessage((previous) => {
+      const transcript = supportTranscript(chatCategory.title, messages);
+      return previous ? previous + "\n\n" + transcript : transcript;
+    });
+    setChatCategory(null);
+    setStatus("");
+    requestAnimationFrame(() => {
     contact.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
     nameInput.current?.focus({ preventScroll: true });
+    });
   }
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -39,7 +43,7 @@ export function SupportSection() {
           <p>Questions about True<span>Rack</span>, your order, or anything else?<br />We&apos;re here to make things right.</p>
         </header>
         <div className={styles.topics}>
-          {topics.map((item) => <button key={item.title} type="button" className={styles.card} onClick={() => selectTopic(item.title)}>
+          {topics.map((item) => <button key={item.title} type="button" className={styles.card} onClick={() => setChatCategory(item)} aria-haspopup="dialog">
             <span aria-hidden="true" className={styles.icon} style={{ maskImage: "url(/support/" + item.icon + ".svg)", WebkitMaskImage: "url(/support/" + item.icon + ".svg)" }} />
             <span><span className={styles.cardTitle}>{item.title}</span><span className={styles.cardDescription}>{item.description}</span></span>
           </button>)}
@@ -52,7 +56,7 @@ export function SupportSection() {
               <label>Email<input name="email" type="email" autoComplete="email" placeholder="Your email" maxLength={254} required /></label>
             </div>
             <label>What can we help with?<select name="topic" value={topic} onChange={(event) => setTopic(event.target.value)} required><option value="" disabled>Select a topic</option>{topics.map((item) => <option key={item.title}>{item.title}</option>)}</select></label>
-            <label>Message<textarea name="message" placeholder="Tell us how we can help?" rows={5} maxLength={5000} required /></label>
+            <label>Message<textarea name="message" placeholder="Tell us how we can help..." rows={5} maxLength={20000} value={contactMessage} onChange={(event) => setContactMessage(event.target.value)} required /></label>
             <button type="submit" className={styles.send}>Send Message</button>
             <p className={styles.status} role="status">{status || (email ? "Opens your email app so you can review and send your message." : "Online messaging is being set up.")}</p>
           </form>
@@ -62,6 +66,7 @@ export function SupportSection() {
           <div className={styles.answers}>{questions.map((item) => <details key={item.question}><summary>{item.question}<span aria-hidden="true" /></summary><p>{item.answer}</p></details>)}</div>
         </div>
       </div>
+      {chatCategory && <SupportChat key={chatCategory.id} category={chatCategory} onClose={() => setChatCategory(null)} onContact={contactPayton} />}
     </section>
   );
 }

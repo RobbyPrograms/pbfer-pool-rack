@@ -26,3 +26,4 @@
 .rackDesign { border: 1px solid var(--ink-line); padding: 1rem; margin-bottom: 1.25rem; }
 .rackDesign legend { padding-inline: .5rem; color: var(--paper); }
 .fileName { overflow-wrap: anywhere; font-size: .875rem; color: var(--paper); }
+.orderColors { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-top: .75rem; font-size: .875rem; color: var(--paper-mute); }

@@ -77,12 +77,12 @@ export function SiteHeader() {
           <Link
             href="/#shop"
             onClick={() => setOpen(false)}
-            className="ember-btn shrink-0 whitespace-nowrap !gap-1 !px-3 !py-2 text-[0.65rem] font-bold normal-case sm:!px-4 sm:!py-2.5 sm:text-[0.78rem]"
+            className="ember-btn relative shrink-0 whitespace-nowrap !gap-1 !px-4 !py-2 text-[0.65rem] font-bold normal-case sm:!px-6 sm:!py-2.5 sm:text-[0.78rem]"
           >
-            <span className="text-paper">Shop</span>
-            <span className="whitespace-nowrap leading-none">
-              <span className="text-ink">True</span>
-              <span className="text-paper">Rack</span>
+            <span aria-hidden="true" className="invisible flex items-center gap-1"><span>Shop</span><span className="leading-none">TrueRack</span></span>
+            <span className="absolute inset-y-0 left-[5%] flex w-[90%] items-center justify-center gap-1 text-[0.9rem] font-black leading-none tracking-normal sm:text-[1.05rem]">
+              <span className="text-paper">Shop</span>
+              <span><span className="text-ink">True</span><span className="text-paper">Rack</span></span>
             </span>
           </Link>
         </div>

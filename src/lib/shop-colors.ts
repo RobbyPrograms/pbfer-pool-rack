@@ -1,4 +1,4 @@
-const black = ["1271", "1329", "1336", "1356", "1380", "1403"];
+const black = ["1271", "1329", "1336", "1356"];
 
 export const SHOP_COLORS = [
   { name: "Black", hex: "#1e2a2c", photos: black, placeholder: false },

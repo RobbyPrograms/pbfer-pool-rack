@@ -61,6 +61,34 @@ test('standard checkout uses server price, quantity, and selected color', async 
   assert.equal(item.quantity, '2');
   assert.match(item.name, /Standard.*Blue/);
 });
+test('mixed-color orders preserve colors and quantities in separate line items', async () => {
+  assert.equal((await route.POST(json({ quantity: 3, colors: ['Black', 'Green', 'Black'] }))).status, 200);
+  const items = calls.at(-1).order.line_items;
+  assert.equal(items.length, 2);
+  assert.equal(items[0].metadata.color, 'Black');
+  assert.equal(items[0].quantity, '2');
+  assert.equal(items[1].metadata.color, 'Green');
+  assert.equal(items[1].quantity, '1');
+  assert.equal(items.reduce((total, item) => total + Number(item.quantity) * item.base_price_money.amount, 0), 14997);
+});
+test('per-rack colors must match quantity and use valid color names', async () => {
+  for (const body of [
+    { quantity: 2, colors: ['Black'] },
+    { quantity: 1, colors: ['Unknown'] },
+    { quantity: 1, colors: 'Black' },
+  ]) assert.equal((await route.POST(json(body))).status, 400);
+});
+test('20-rack bulk orders preserve every color and full-price total', async () => {
+  const colors = Array.from({ length: 20 }, (_, index) => index < 12 ? 'Black' : 'Green');
+  assert.equal((await route.POST(json({ quantity: 20, colors }))).status, 200);
+  const items = calls.at(-1).order.line_items;
+  assert.equal(items.reduce((total, item) => total + Number(item.quantity), 0), 20);
+  assert.equal(items.reduce((total, item) => total + Number(item.quantity) * item.base_price_money.amount, 0), 99980);
+});
+test('100-rack orders are supported at the configured limit', async () => {
+  assert.equal((await route.POST(json({ quantity: 100, color: 'Black' }))).status, 200);
+  assert.equal(calls.at(-1).order.line_items[0].quantity, '100');
+});
 test('custom name stores name/font and charges 59.99', async () => {
   const result = await route.POST(json({ variant: 'custom', kind: 'name', name: ' Maverick ', font: 'industry-bold', quantity: 1, color: 'Black' }));
   assert.equal(result.status, 200);
@@ -77,7 +105,7 @@ test('custom checkout rejects missing choice, blank name, unknown font, and miss
   ]) assert.equal((await route.POST(json(body))).status, 400);
 });
 test('checkout rejects invalid variants, quantities, and colors', async () => {
-  for (const body of [{ variant: 'fake' }, { quantity: 1.5 }, { quantity: 0 }, { quantity: 5 }, { color: 'invalid' }]) {
+  for (const body of [{ variant: 'fake' }, { quantity: 1.5 }, { quantity: 0 }, { quantity: 101 }, { color: 'invalid' }]) {
     assert.equal((await route.POST(json(body))).status, 400);
   }
 });

@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
 import { BRAND } from "@/lib/brand";
 import { SHOP_COLORS } from "@/lib/shop-colors";
-import { CUSTOM_PRICE_CENTS, MAX_LOGO_BYTES, logoFormat, validateName } from "@/lib/customization";
+import { CUSTOM_PRICE_CENTS, MAX_LOGO_BYTES, MAX_ORDER_QUANTITY, logoFormat, validateName } from "@/lib/customization";
 import { getSquareConfig, squareFetch } from "@/lib/square";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { clientKey, rateLimit } from "@/lib/rate-limit";
@@ -31,9 +31,15 @@ export async function POST(request: Request) {
   if (body.variant !== undefined && body.variant !== "standard" && body.variant !== "custom") return NextResponse.json({ error: "Choose a valid product option." }, { status: 400 });
   const custom = body.variant === "custom";
   const quantity = Number(body.quantity ?? 1);
-  if (!Number.isInteger(quantity) || quantity < 1 || quantity > 4) return NextResponse.json({ error: "Choose a quantity between 1 and 4." }, { status: 400 });
+  if (!Number.isInteger(quantity) || quantity < 1 || quantity > MAX_ORDER_QUANTITY) return NextResponse.json({ error: `Choose a quantity between 1 and ${MAX_ORDER_QUANTITY}.` }, { status: 400 });
   const color = SHOP_COLORS.find((item) => item.name === (body.color ?? "Black"))?.name;
   if (!color) return NextResponse.json({ error: "Choose a valid color." }, { status: 400 });
+  const colors = body.colors === undefined ? Array(quantity).fill(color) as string[] : body.colors;
+  if (!Array.isArray(colors) || colors.length !== quantity || colors.some((value) => !SHOP_COLORS.some((item) => item.name === value))) {
+    return NextResponse.json({ error: "Choose a valid color for every rack." }, { status: 400 });
+  }
+  const colorGroups = new Map<string, number>();
+  for (const selected of colors) colorGroups.set(selected, (colorGroups.get(selected) ?? 0) + 1);
 
   let note = "Standard / Unbranded";
   let upload: { bytes: Uint8Array; extension: string; mime: string } | null = null;
@@ -82,13 +88,13 @@ export async function POST(request: Request) {
         description: "TrueRack " + (custom ? "Custom" : "Standard") + " x " + quantity,
         order: {
           location_id: square.locationId,
-          line_items: [{
-            name: "TrueRack - " + (custom ? "Custom" : "Standard / Unbranded") + " - " + color,
+          line_items: Array.from(colorGroups, ([itemColor, count]) => ({
+            name: "TrueRack - " + (custom ? "Custom" : "Standard / Unbranded") + " - " + itemColor,
             note,
-            quantity: String(quantity),
+            quantity: String(count),
             base_price_money: { amount: custom ? CUSTOM_PRICE_CENTS : BRAND.priceCents, currency: "USD" },
-            metadata: { color, customization: custom ? String(body.kind) : "none", ...(artworkPath ? { artwork_path: "custom-logos/" + artworkPath } : {}) },
-          }],
+            metadata: { color: itemColor, customization: custom ? String(body.kind) : "none", ...(artworkPath ? { artwork_path: "custom-logos/" + artworkPath } : {}) },
+          })),
         },
         checkout_options: { redirect_url: origin + "/order/success", ask_for_shipping_address: true, allow_tipping: false },
       }),

@@ -1,4 +1,5 @@
 export const CUSTOM_PRICE_CENTS = 5999;
+export const MAX_ORDER_QUANTITY = 100;
 export const MAX_LOGO_BYTES = 3 * 1024 * 1024;
 export const CUSTOM_FONTS = [
   { id: "industry-book", label: "Industry Book", weight: 400 },

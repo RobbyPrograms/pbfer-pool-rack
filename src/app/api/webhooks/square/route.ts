@@ -73,7 +73,7 @@ export async function POST(request: Request) {
   if (payment.order_id && getSquareConfig().ready) {
     try {
       const order = await squareFetch<SquareOrder>(`/v2/orders/${payment.order_id}`);
-      const fromLine = Number(order.order?.line_items?.[0]?.quantity);
+      const fromLine = (order.order?.line_items ?? []).reduce((total, item) => total + (Number(item.quantity) || 0), 0);
       if (fromLine > 0) quantity = fromLine;
     } catch {
       quantity = 1;

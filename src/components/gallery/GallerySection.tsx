@@ -46,7 +46,7 @@ export function GallerySection() {
         <div className={styles.customize}>
           <h3>Make It <span className={styles.accent}>Yours</span></h3>
           <p>Your colors. Your logo. Your True<span>Rack.</span></p>
-          <Link href="/#shop-customize" className={styles.cta}><span className={styles.ctaLabel}>Customize True<span className={styles.ctaRack}>Rack</span></span></Link>
+          <Link href="/#shop-customize" onClick={() => window.dispatchEvent(new Event("select-truerack-custom"))} className={styles.cta}><span className={styles.ctaLabel}>Customize True<span className={styles.ctaRack}>Rack</span></span></Link>
         </div>
       </div>
 

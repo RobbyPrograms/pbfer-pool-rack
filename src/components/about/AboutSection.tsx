@@ -38,7 +38,7 @@ export function AboutSection() {
             <h2 id="product-title">Meet True<span>Rack.</span></h2>
             <p>A precision-engineered foldable pool rack that makes racking easier, faster, and more consistent.</p>
             <p>Tested, refined, and built to perform.</p>
-            <Link href="/#features" className={styles.button}><span className={styles.buttonLabel}>Explore True<span className={styles.buttonRack}>Rack</span></span></Link>
+            <Link href="/#shop" className={styles.button}><span className={styles.buttonLabel}>Shop True<span className={styles.buttonRack}>Rack</span></span></Link>
           </div>
           <Image src={rack} alt="Black BuiltTrue folding pool rack in a studio portrait" sizes="(min-width: 1280px) 600px, (min-width: 1024px) 48vw, 100vw" className={styles.rack} />
         </section>

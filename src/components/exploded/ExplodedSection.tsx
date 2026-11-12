@@ -35,10 +35,10 @@ export function ExplodedSection() {
             <h2 className="display mt-4 text-[2rem] leading-[0.95] sm:text-6xl md:text-7xl">
               Spec Sheet
             </h2>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-paper-mute sm:text-lg">
+            <p className="mt-6 max-w-md text-base leading-relaxed text-white sm:text-lg">
               For players who care about every angle—including the ones in
               their rack. Take a closer look at the dimensions, materials, and
-              hardware behind TrueRack.
+              hardware behind True<span className="text-ember">Rack</span>.
             </p>
           </div>
 
